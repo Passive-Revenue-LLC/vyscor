@@ -4,13 +4,22 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEvents } from '@/hooks/useEvents';
+import { useEventDetails } from '@/hooks/useEventDetails';
 import { EventStatus, SPORT_CONFIG } from '@/types';
 import { cn, getStatusLabel, formatDateTime, getRelativeTime } from '@/lib/utils';
 import OddsDisplay from '@/components/betting/OddsDisplay';
 import EventCard from '@/components/events/EventCard';
 import Badge from '@/components/ui/Badge';
+import type { FixtureStatistic, H2HMatch, TeamLineup } from '@/lib/api/apifootball';
 
 type DetailTab = 'RESUMEN' | 'ESTADISTICAS' | 'H2H' | 'ALINEACION';
+
+const TAB_TO_API: Record<DetailTab, string> = {
+  RESUMEN: '',
+  ESTADISTICAS: 'stats',
+  H2H: 'h2h',
+  ALINEACION: 'lineups',
+};
 
 export default function EventDetailPage() {
   const params = useParams();
@@ -18,6 +27,12 @@ export default function EventDetailPage() {
   const { events: allEvents, loading } = useEvents({ refreshInterval: 30000 });
 
   const event = allEvents.find((e) => e.id === params.id);
+
+  const apiTab = TAB_TO_API[activeTab];
+  const { data: detailData, loading: detailLoading } = useEventDetails(
+    apiTab ? event : undefined,
+    apiTab as 'stats' | 'h2h' | 'lineups'
+  );
 
   const relatedEvents = useMemo(() => {
     if (!event) return [];
@@ -182,21 +197,25 @@ export default function EventDetailPage() {
         )}
 
         {activeTab === 'ESTADISTICAS' && (
-          <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
-            <p className="font-mono text-sm text-muted">Estadisticas no disponibles todavia</p>
-          </div>
+          <DetailSection loading={detailLoading} data={detailData}>
+            <StatisticsView
+              statistics={detailData?.statistics || []}
+              homeTeam={event.homeTeam}
+              awayTeam={event.awayTeam}
+            />
+          </DetailSection>
         )}
 
         {activeTab === 'H2H' && (
-          <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
-            <p className="font-mono text-sm text-muted">Historial de enfrentamientos proximamente</p>
-          </div>
+          <DetailSection loading={detailLoading} data={detailData}>
+            <H2HView matches={detailData?.matches || []} />
+          </DetailSection>
         )}
 
         {activeTab === 'ALINEACION' && (
-          <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
-            <p className="font-mono text-sm text-muted">Alineaciones no disponibles todavia</p>
-          </div>
+          <DetailSection loading={detailLoading} data={detailData}>
+            <LineupsView lineups={detailData?.lineups || []} />
+          </DetailSection>
         )}
 
         {/* Related events */}
@@ -217,6 +236,196 @@ export default function EventDetailPage() {
   );
 }
 
+// --- Sub-components ---
+
+function DetailSection({
+  loading,
+  data,
+  children,
+}: {
+  loading: boolean;
+  data: { available?: boolean; message?: string } | null;
+  children: React.ReactNode;
+}) {
+  if (loading) {
+    return (
+      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+        <div className="flex items-center justify-center gap-2">
+          <div className="w-4 h-4 border-2 border-cyber-cyan border-t-transparent rounded-full animate-spin" />
+          <p className="font-mono text-sm text-muted">Cargando datos...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data || !data.available) {
+    return (
+      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+        <p className="font-mono text-sm text-muted">
+          {data?.message || 'No hay datos disponibles para este evento'}
+        </p>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
+}
+
+function StatisticsView({
+  statistics,
+  homeTeam,
+  awayTeam,
+}: {
+  statistics: FixtureStatistic[];
+  homeTeam: string;
+  awayTeam: string;
+}) {
+  return (
+    <div className="bg-bg-card border border-border rounded-lg p-4">
+      <div className="flex items-center justify-between mb-4">
+        <span className="font-mono text-xs text-cyber-cyan font-bold truncate max-w-[40%]">{homeTeam}</span>
+        <span className="font-orbitron text-[10px] text-muted tracking-widest">ESTADISTICAS</span>
+        <span className="font-mono text-xs text-cyber-purple2 font-bold truncate max-w-[40%] text-right">{awayTeam}</span>
+      </div>
+      <div className="space-y-3">
+        {statistics.map((stat) => {
+          const homeVal = parseStatValue(stat.home);
+          const awayVal = parseStatValue(stat.away);
+          const total = homeVal + awayVal;
+          const homePct = total > 0 ? (homeVal / total) * 100 : 50;
+          const awayPct = total > 0 ? (awayVal / total) * 100 : 50;
+
+          return (
+            <div key={stat.type}>
+              <div className="flex items-center justify-between mb-1">
+                <span className="font-mono text-xs text-[#e8e8f0] w-16 text-left">
+                  {formatStatDisplay(stat.home)}
+                </span>
+                <span className="font-mono text-[10px] text-muted flex-1 text-center">
+                  {translateStatType(stat.type)}
+                </span>
+                <span className="font-mono text-xs text-[#e8e8f0] w-16 text-right">
+                  {formatStatDisplay(stat.away)}
+                </span>
+              </div>
+              <div className="flex gap-1 h-1.5">
+                <div className="flex-1 bg-bg-tertiary rounded-full overflow-hidden flex justify-end">
+                  <div
+                    className="bg-cyber-cyan rounded-full transition-all duration-500"
+                    style={{ width: `${homePct}%` }}
+                  />
+                </div>
+                <div className="flex-1 bg-bg-tertiary rounded-full overflow-hidden">
+                  <div
+                    className="bg-cyber-purple2 rounded-full transition-all duration-500"
+                    style={{ width: `${awayPct}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function H2HView({ matches }: { matches: H2HMatch[] }) {
+  return (
+    <div className="bg-bg-card border border-border rounded-lg overflow-hidden">
+      <div className="px-4 py-3 border-b border-border">
+        <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+          ULTIMOS ENFRENTAMIENTOS
+        </h3>
+      </div>
+      <div className="divide-y divide-border">
+        {matches.map((match, i) => {
+          const date = new Date(match.date);
+          const dateStr = date.toLocaleDateString('es-ES', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+          });
+
+          return (
+            <div key={i} className="px-4 py-3 flex items-center gap-3">
+              <span className="font-mono text-[10px] text-muted w-20 shrink-0">{dateStr}</span>
+              <div className="flex-1 flex items-center justify-center gap-2 min-w-0">
+                <span className="font-mono text-xs text-[#e8e8f0] truncate text-right flex-1">
+                  {match.homeTeam}
+                </span>
+                <span className={cn(
+                  'font-mono text-sm font-bold px-2 py-0.5 rounded shrink-0',
+                  match.homeScore !== null ? 'text-[#e8e8f0] bg-bg-tertiary' : 'text-muted'
+                )}>
+                  {match.homeScore ?? '-'} - {match.awayScore ?? '-'}
+                </span>
+                <span className="font-mono text-xs text-[#e8e8f0] truncate flex-1">
+                  {match.awayTeam}
+                </span>
+              </div>
+              <span className="font-mono text-[9px] text-muted w-24 shrink-0 text-right truncate">
+                {match.league}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function LineupsView({ lineups }: { lineups: TeamLineup[] }) {
+  if (lineups.length < 2) return null;
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {lineups.map((lineup) => (
+        <div key={lineup.team} className="bg-bg-card border border-border rounded-lg overflow-hidden">
+          <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+            <span className="font-mono text-xs font-bold text-[#e8e8f0]">{lineup.team}</span>
+            {lineup.formation && (
+              <span className="font-mono text-[10px] text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded">
+                {lineup.formation}
+              </span>
+            )}
+          </div>
+
+          {/* Starting XI */}
+          <div className="px-4 py-2">
+            <p className="font-mono text-[10px] text-muted tracking-widest mb-2">TITULARES</p>
+            <div className="space-y-1">
+              {lineup.startXI.map((player) => (
+                <div key={player.number} className="flex items-center gap-2 py-0.5">
+                  <span className="font-mono text-[10px] text-cyber-cyan w-5 text-right">{player.number}</span>
+                  <span className="font-mono text-xs text-[#e8e8f0]">{player.name}</span>
+                  <span className="font-mono text-[9px] text-muted ml-auto">{translatePosition(player.pos)}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Substitutes */}
+          {lineup.substitutes.length > 0 && (
+            <div className="px-4 py-2 border-t border-border/50">
+              <p className="font-mono text-[10px] text-muted tracking-widest mb-2">SUPLENTES</p>
+              <div className="space-y-1">
+                {lineup.substitutes.map((player) => (
+                  <div key={player.number} className="flex items-center gap-2 py-0.5">
+                    <span className="font-mono text-[10px] text-muted w-5 text-right">{player.number}</span>
+                    <span className="font-mono text-xs text-muted">{player.name}</span>
+                    <span className="font-mono text-[9px] text-muted/50 ml-auto">{translatePosition(player.pos)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function InfoRow({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className="flex items-center justify-between py-1.5 border-b border-border last:border-0">
@@ -226,4 +435,46 @@ function InfoRow({ label, value, highlight }: { label: string; value: string; hi
       </span>
     </div>
   );
+}
+
+// --- Helpers ---
+
+function parseStatValue(val: string | number | null): number {
+  if (val === null) return 0;
+  if (typeof val === 'number') return val;
+  const num = parseFloat(val.replace('%', ''));
+  return isNaN(num) ? 0 : num;
+}
+
+function formatStatDisplay(val: string | number | null): string {
+  if (val === null) return '0';
+  return String(val);
+}
+
+function translateStatType(type: string): string {
+  const translations: Record<string, string> = {
+    'Ball Possession': 'Posesion',
+    'Total Shots': 'Tiros totales',
+    'Shots on Goal': 'Tiros a puerta',
+    'Shots off Goal': 'Tiros fuera',
+    'Blocked Shots': 'Tiros bloqueados',
+    'Shots insidebox': 'Tiros dentro area',
+    'Shots outsidebox': 'Tiros fuera area',
+    'Fouls': 'Faltas',
+    'Corner Kicks': 'Corners',
+    'Offsides': 'Fuera de juego',
+    'Yellow Cards': 'Tarjetas amarillas',
+    'Red Cards': 'Tarjetas rojas',
+    'Goalkeeper Saves': 'Paradas',
+    'Total passes': 'Pases totales',
+    'Passes accurate': 'Pases precisos',
+    'Passes %': 'Precision pases',
+    'expected_goals': 'xG',
+  };
+  return translations[type] || type;
+}
+
+function translatePosition(pos: string): string {
+  const map: Record<string, string> = { G: 'POR', D: 'DEF', M: 'MED', F: 'DEL' };
+  return map[pos] || pos;
 }
