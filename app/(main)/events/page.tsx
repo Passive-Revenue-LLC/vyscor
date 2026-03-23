@@ -9,7 +9,7 @@ import EventFilters from '@/components/events/EventFilters';
 
 export default function EventsPage() {
   const { sportFilter, setSportFilter } = useAppStore();
-  const { events: allEvents, loading } = useEvents({ refreshInterval: 60000 });
+  const { events: allEvents } = useEvents({ refreshInterval: 60000 });
 
   const events = useMemo(() => {
     let filtered = allEvents.filter(

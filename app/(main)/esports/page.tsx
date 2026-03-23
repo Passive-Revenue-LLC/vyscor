@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Sport, FilterTab, SPORT_CONFIG, EventStatus } from '@/types';
+import { Sport, FilterTab, SPORT_CONFIG } from '@/types';
 import { cn } from '@/lib/utils';
 import { useEvents } from '@/hooks/useEvents';
 import EventGrid from '@/components/events/EventGrid';

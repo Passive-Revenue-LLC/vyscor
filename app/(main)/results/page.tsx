@@ -8,7 +8,7 @@ import EventFilters from '@/components/events/EventFilters';
 
 export default function ResultsPage() {
   const [filter, setFilter] = useState<FilterTab>('TODOS');
-  const { events: allEvents, loading } = useEvents({ status: EventStatus.FINISHED });
+  const { events: allEvents } = useEvents({ status: EventStatus.FINISHED });
 
   const events = useMemo(() => {
     let filtered = allEvents;
