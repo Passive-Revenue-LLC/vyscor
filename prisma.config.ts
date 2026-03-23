@@ -4,14 +4,11 @@ import { defineConfig } from 'prisma/config';
 
 dotenv.config({ path: path.join(__dirname, '.env.local') });
 
-const databaseUrl = process.env.DATABASE_URL!;
+const migrateUrl = process.env.DIRECT_DATABASE_URL || process.env.DATABASE_URL!;
 
 export default defineConfig({
   schema: path.join(__dirname, 'prisma', 'schema.prisma'),
   datasource: {
-    url: databaseUrl,
+    url: migrateUrl,
   },
-  migrate: {
-    url: databaseUrl,
-  },
-});
+} as Parameters<typeof defineConfig>[0]);
