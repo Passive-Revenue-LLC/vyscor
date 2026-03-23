@@ -25,10 +25,10 @@ export default function Navbar({ activeTab, onTabChange, liveCount = 0 }: Navbar
           <Link href="/" className="flex items-center gap-3 group">
             <div className="flex items-baseline">
               <span className="font-orbitron font-black text-xl sm:text-2xl text-cyber-cyan text-glow-cyan tracking-wider">
-                ODD
+                VYS
               </span>
               <span className="font-orbitron font-black text-xl sm:text-2xl text-cyber-purple2 text-glow-purple tracking-wider">
-                YX
+                COR
               </span>
             </div>
             <span className="hidden sm:block font-mono text-[10px] text-muted tracking-widest uppercase">

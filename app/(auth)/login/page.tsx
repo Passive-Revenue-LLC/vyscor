@@ -18,8 +18,8 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-baseline">
-            <span className="font-orbitron font-black text-3xl text-cyber-cyan text-glow-cyan">ODD</span>
-            <span className="font-orbitron font-black text-3xl text-cyber-purple2 text-glow-purple">YX</span>
+            <span className="font-orbitron font-black text-3xl text-cyber-cyan text-glow-cyan">VYS</span>
+            <span className="font-orbitron font-black text-3xl text-cyber-purple2 text-glow-purple">COR</span>
           </Link>
           <p className="font-mono text-xs text-muted mt-2">Inicia sesion en tu cuenta</p>
         </div>

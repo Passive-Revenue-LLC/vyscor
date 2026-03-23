@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ODDYX - Sports & Esports Hub",
+  title: "VYSCOR - Sports & Esports Hub",
   description: "Plataforma de eventos deportivos y e-sports con seguimiento en tiempo real. Resultados en vivo, estadísticas y más.",
   keywords: ["deportes", "esports", "eventos", "en vivo", "resultados", "CS2", "LoL", "fútbol"],
   icons: {

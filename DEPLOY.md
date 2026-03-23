@@ -1,4 +1,4 @@
-# Despliegue de ODDYX
+# Despliegue de VYSCOR
 
 ## Requisitos previos
 
@@ -48,7 +48,7 @@ DATABASE_URL=postgresql://...
 PANDASCORE_API_KEY=tu_api_key
 API_FOOTBALL_KEY=tu_api_key
 NEXT_PUBLIC_APP_URL=https://tu-dominio.vercel.app
-NEXT_PUBLIC_APP_NAME=ODDYX
+NEXT_PUBLIC_APP_NAME=VYSCOR
 ```
 
 ### 5. Desplegar en Vercel
