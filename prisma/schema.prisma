@@ -1,10 +1,10 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model Event {
@@ -54,7 +54,15 @@ model Waitlist {
 enum Sport {
   FOOTBALL
   BASKETBALL
-  TENNIS
+  NBA
+  BASEBALL
+  HOCKEY
+  NFL
+  RUGBY
+  AFL
+  VOLLEYBALL
+  HANDBALL
+  MMA
   F1
   CS2
   LOL
