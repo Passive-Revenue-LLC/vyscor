@@ -19,7 +19,7 @@ export async function fetchEsportsMatches(game: string, status?: string) {
 
   const params = new URLSearchParams({
     token: API_KEY,
-    sort: status === 'running' ? '' : 'begin_at',
+    sort: status === 'running' ? '-scheduled_at' : 'begin_at',
     per_page: '20',
   });
 
@@ -38,9 +38,9 @@ export async function fetchEsportsMatches(game: string, status?: string) {
 
 export function mapPandaScoreToEvent(match: PandaScoreMatch) {
   const gameMap: Record<string, string> = {
-    csgo: 'CS2',
-    lol: 'LOL',
-    dota2: 'DOTA2',
+    'cs-go': 'CS2',
+    'league-of-legends': 'LOL',
+    'dota-2': 'DOTA2',
     valorant: 'VALORANT',
     rl: 'ROCKETLEAGUE',
   };
