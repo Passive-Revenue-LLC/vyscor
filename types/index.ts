@@ -45,9 +45,11 @@ export interface Event {
 
 export interface User {
   id: string;
+  supabaseId: string;
   email: string;
   name?: string;
   favorites: string[];
+  favoriteCategories: Sport[];
   notifications: boolean;
   referralCode?: string;
   createdAt: string;

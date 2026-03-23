@@ -1,22 +1,53 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase/client';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const supabase = createClient();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Supabase auth integration
+    setError('');
+    setLoading(true);
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { name },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+      return;
+    }
+
+    router.push('/');
+    router.refresh();
+  };
+
+  const handleGoogleSignUp = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
+    });
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg-primary px-4">
       <div className="w-full max-w-sm">
-        {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-baseline">
             <span className="font-orbitron font-black text-3xl text-cyber-cyan text-glow-cyan">VYS</span>
@@ -27,6 +58,11 @@ export default function RegisterPage() {
 
         <div className="bg-bg-card border border-border rounded-xl p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="px-3 py-2 bg-cyber-red/10 border border-cyber-red/30 rounded-lg">
+                <p className="font-mono text-xs text-cyber-red">{error}</p>
+              </div>
+            )}
             <div>
               <label className="block font-mono text-xs text-muted mb-1.5">Nombre</label>
               <input
@@ -62,9 +98,10 @@ export default function RegisterPage() {
             </div>
             <button
               type="submit"
-              className="w-full px-4 py-2.5 bg-gradient-to-r from-cyber-purple to-cyber-purple2 text-white font-orbitron text-sm font-bold rounded-lg tracking-wide transition-all duration-150 hover:opacity-90"
+              disabled={loading}
+              className="w-full px-4 py-2.5 bg-gradient-to-r from-cyber-purple to-cyber-purple2 text-white font-orbitron text-sm font-bold rounded-lg tracking-wide transition-all duration-150 hover:opacity-90 disabled:opacity-50"
             >
-              CREAR CUENTA
+              {loading ? 'CREANDO...' : 'CREAR CUENTA'}
             </button>
           </form>
 
@@ -77,7 +114,10 @@ export default function RegisterPage() {
                 <span className="px-2 bg-bg-card font-mono text-xs text-muted">o</span>
               </div>
             </div>
-            <button className="w-full px-4 py-2.5 bg-bg-tertiary border border-border text-[#e8e8f0] font-mono text-sm rounded-lg transition-all duration-150 hover:border-border-hover">
+            <button
+              onClick={handleGoogleSignUp}
+              className="w-full px-4 py-2.5 bg-bg-tertiary border border-border text-[#e8e8f0] font-mono text-sm rounded-lg transition-all duration-150 hover:border-border-hover"
+            >
               Registrarse con Google
             </button>
           </div>
