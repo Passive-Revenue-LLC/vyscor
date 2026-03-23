@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id         String      @id @default(cuid())
+  externalId String?     @unique
+  sport      Sport
+  league     String
+  homeTeam   String
+  awayTeam   String
+  homeScore  Int?
+  awayScore  Int?
+  status     EventStatus
+  startTime  DateTime
+  venue      String?
+  streamUrl  String?
+  metadata   Json?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+  favorites     String[]
+  notifications Boolean  @default(true)
+  referralCode  String?  @unique
+  createdAt     DateTime @default(now())
+}
+
+model BettingPartner {
+  id          String  @id @default(cuid())
+  name        String
+  logoUrl     String?
+  bonusText   String
+  referralUrl String
+  isActive    Boolean @default(false)
+  order       Int     @default(0)
+}
+
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+enum Sport {
+  FOOTBALL
+  BASKETBALL
+  TENNIS
+  F1
+  CS2
+  LOL
+  DOTA2
+  VALORANT
+  ROCKETLEAGUE
+}
+
+enum EventStatus {
+  UPCOMING
+  LIVE
+  FINISHED
+  CANCELLED
+}
