@@ -13,7 +13,7 @@ export default function FeaturedMatch({ event }: FeaturedMatchProps) {
   const isLive = event.status === EventStatus.LIVE;
 
   return (
-    <Link href={`/eventos/${event.id}`}>
+    <Link href={`/events/${event.id}`}>
       <div className="relative bg-bg-card border border-border rounded-xl overflow-hidden group cursor-pointer transition-all duration-150 hover:border-border-hover">
         {/* Top accent line */}
         <div className="h-[2px] bg-gradient-to-r from-cyber-cyan to-cyber-purple" />

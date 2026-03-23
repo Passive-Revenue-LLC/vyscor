@@ -16,7 +16,7 @@ export default function EventCard({ event, showOdds = false }: EventCardProps) {
   const isFinished = event.status === EventStatus.FINISHED;
 
   return (
-    <Link href={`/eventos/${event.id}`}>
+    <Link href={`/events/${event.id}`}>
       <div
         className={cn(
           'bg-bg-card border border-border rounded-lg p-4 border-l-2 transition-all duration-150',
