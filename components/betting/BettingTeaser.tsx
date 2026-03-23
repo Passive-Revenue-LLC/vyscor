@@ -1,7 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { mockBettingPartners } from '@/lib/mock-data';
+
+const BETTING_PARTNERS = [
+  { id: 'bp-001', name: 'Bet365', bonusText: 'Hasta 100EUR en apuesta gratis' },
+  { id: 'bp-002', name: 'Bwin', bonusText: '100% en tu primer deposito' },
+  { id: 'bp-003', name: '888sport', bonusText: '30EUR gratis sin deposito' },
+];
 
 export default function BettingTeaser() {
   const [email, setEmail] = useState('');
@@ -29,7 +34,7 @@ export default function BettingTeaser() {
 
       {/* Bookies list (blurred) */}
       <div className="space-y-2 mb-4">
-        {mockBettingPartners.map((partner) => (
+        {BETTING_PARTNERS.map((partner) => (
           <div
             key={partner.id}
             className="relative bg-bg-tertiary rounded-lg p-3 overflow-hidden"
