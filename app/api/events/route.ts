@@ -1,6 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchFootballFixtures, mapApiFootballToEvent } from '@/lib/api/apifootball';
+import { fetchAllSportsGames } from '@/lib/api/api-sports';
+import { fetchNbaGames } from '@/lib/api/nba';
+import { fetchF1Races } from '@/lib/api/formula1';
 import { EventStatus, Sport, Event } from '@/types';
+
+function toEvent(mapped: Record<string, unknown>, prefix: string): Event {
+  return {
+    ...mapped,
+    id: `${prefix}-${mapped.externalId}`,
+    sport: mapped.sport as Sport,
+    status: mapped.status as EventStatus,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  } as Event;
+}
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -11,18 +25,42 @@ export async function GET(request: NextRequest) {
   const offset = parseInt(searchParams.get('offset') || '0');
 
   try {
-    const fixtures = await fetchFootballFixtures(date);
-    let events: Event[] = fixtures.map((f, i) => {
-      const mapped = mapApiFootballToEvent(f);
-      return {
-        ...mapped,
-        id: `af-${mapped.externalId}`,
-        sport: mapped.sport as unknown as Sport,
-        status: mapped.status as unknown as EventStatus,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      } as Event;
-    });
+    const [footballFixtures, sportsGames, nbaGames, f1Races] = await Promise.allSettled([
+      fetchFootballFixtures(date),
+      fetchAllSportsGames(date),
+      fetchNbaGames(date),
+      fetchF1Races(),
+    ]);
+
+    let events: Event[] = [];
+
+    // Football
+    if (footballFixtures.status === 'fulfilled') {
+      events.push(
+        ...footballFixtures.value.map((f) => toEvent(mapApiFootballToEvent(f), 'af'))
+      );
+    }
+
+    // Basketball, Hockey, Baseball, Handball, Volleyball, Rugby, NFL, AFL, MMA
+    if (sportsGames.status === 'fulfilled') {
+      events.push(
+        ...sportsGames.value.map((g) => toEvent(g, 'as'))
+      );
+    }
+
+    // NBA
+    if (nbaGames.status === 'fulfilled') {
+      events.push(
+        ...nbaGames.value.map((g) => toEvent(g, 'nba'))
+      );
+    }
+
+    // F1
+    if (f1Races.status === 'fulfilled') {
+      events.push(
+        ...f1Races.value.map((r) => toEvent(r, 'f1'))
+      );
+    }
 
     if (sport) {
       events = events.filter((e) => e.sport === sport);
