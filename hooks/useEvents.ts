@@ -1,44 +1,91 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Event, EventStatus, Sport } from '@/types';
-import { mockEvents } from '@/lib/mock-data';
+import { isEsport } from '@/lib/utils';
 
 interface UseEventsOptions {
   sport?: Sport;
   status?: EventStatus;
+  esportsOnly?: boolean;
+  refreshInterval?: number;
 }
 
 export function useEvents(options?: UseEventsOptions) {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Simulate API fetch with mock data
-    setLoading(true);
-    const timer = setTimeout(() => {
-      let filtered = [...mockEvents];
+  const fetchData = useCallback(async () => {
+    try {
+      const isEsportsRequest = options?.esportsOnly ||
+        (options?.sport && isEsport(options.sport));
 
-      if (options?.sport) {
-        filtered = filtered.filter((e) => e.sport === options.sport);
+      if (isEsportsRequest) {
+        const params = new URLSearchParams();
+        if (options?.sport) params.set('game', options.sport);
+        if (options?.status) params.set('status', options.status);
+
+        const res = await fetch(`/api/esports?${params}`);
+        const data = await res.json();
+        setEvents(data.data || []);
+      } else if (options?.sport && !isEsport(options.sport)) {
+        // Specific traditional sport
+        const params = new URLSearchParams();
+        params.set('sport', options.sport);
+        if (options?.status) params.set('status', options.status);
+
+        const res = await fetch(`/api/events?${params}`);
+        const data = await res.json();
+        setEvents(data.data || []);
+      } else {
+        // Fetch both football and esports
+        const params = new URLSearchParams();
+        if (options?.status) {
+          params.set('status', options.status);
+        }
+
+        const [footballRes, esportsRes] = await Promise.all([
+          fetch(`/api/events?${params}`),
+          fetch(`/api/esports?${params}`),
+        ]);
+
+        const [footballData, esportsData] = await Promise.all([
+          footballRes.json(),
+          esportsRes.json(),
+        ]);
+
+        const all = [...(footballData.data || []), ...(esportsData.data || [])];
+
+        // Sort: LIVE first, then by startTime
+        all.sort((a: Event, b: Event) => {
+          if (a.status === EventStatus.LIVE && b.status !== EventStatus.LIVE) return -1;
+          if (a.status !== EventStatus.LIVE && b.status === EventStatus.LIVE) return 1;
+          return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
+        });
+
+        if (options?.sport) {
+          setEvents(all.filter((e: Event) => e.sport === options.sport));
+        } else {
+          setEvents(all);
+        }
       }
-
-      if (options?.status) {
-        filtered = filtered.filter((e) => e.status === options.status);
-      }
-
-      filtered.sort((a, b) => {
-        if (a.status === EventStatus.LIVE && b.status !== EventStatus.LIVE) return -1;
-        if (a.status !== EventStatus.LIVE && b.status === EventStatus.LIVE) return 1;
-        return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
-      });
-
-      setEvents(filtered);
+    } catch {
+      setEvents([]);
+    } finally {
       setLoading(false);
-    }, 300);
+    }
+  }, [options?.sport, options?.status, options?.esportsOnly]);
 
-    return () => clearTimeout(timer);
-  }, [options?.sport, options?.status]);
+  useEffect(() => {
+    setLoading(true);
+    fetchData();
 
-  return { events, loading };
+    const interval = options?.refreshInterval;
+    if (interval) {
+      const id = setInterval(fetchData, interval);
+      return () => clearInterval(id);
+    }
+  }, [fetchData, options?.refreshInterval]);
+
+  return { events, loading, refetch: fetchData };
 }
