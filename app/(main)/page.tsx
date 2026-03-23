@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useAppStore } from '@/store/useAppStore';
-import { mockEvents, getFeaturedEvents, getEventsByStatus } from '@/lib/mock-data';
+import { useEvents } from '@/hooks/useEvents';
 import { EventStatus } from '@/types';
 import FeaturedMatch from '@/components/events/FeaturedMatch';
 import EventGrid from '@/components/events/EventGrid';
@@ -13,13 +13,11 @@ import LiveScoreboard from '@/components/events/LiveScoreboard';
 
 export default function HomePage() {
   const { viewTab, sportFilter, setSportFilter } = useAppStore();
-  const featured = getFeaturedEvents();
-  const liveEvents = getEventsByStatus(EventStatus.LIVE);
+  const { events: allEvents, loading } = useEvents({ refreshInterval: 60000 });
 
   const filteredEvents = useMemo(() => {
-    let events = mockEvents;
+    let events = allEvents;
 
-    // Filter by view tab
     if (viewTab === 'LIVE') {
       events = events.filter(e => e.status === EventStatus.LIVE);
     } else if (viewTab === 'RESULTS') {
@@ -28,18 +26,27 @@ export default function HomePage() {
       events = events.filter(e => e.status === EventStatus.UPCOMING || e.status === EventStatus.LIVE);
     }
 
-    // Filter by sport
     if (sportFilter !== 'TODOS') {
       events = events.filter(e => e.sport === sportFilter);
     }
 
-    // Sort: LIVE first, then by startTime
-    return events.sort((a, b) => {
-      if (a.status === EventStatus.LIVE && b.status !== EventStatus.LIVE) return -1;
-      if (a.status !== EventStatus.LIVE && b.status === EventStatus.LIVE) return 1;
-      return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
-    });
-  }, [viewTab, sportFilter]);
+    return events;
+  }, [allEvents, viewTab, sportFilter]);
+
+  const featured = useMemo(() => {
+    const live = allEvents.filter(e => e.status === EventStatus.LIVE);
+    const upcoming = allEvents.filter(e => e.status === EventStatus.UPCOMING);
+    const picks = [...live.slice(0, 2)];
+    if (picks.length < 2) {
+      picks.push(...upcoming.slice(0, 2 - picks.length));
+    }
+    return picks;
+  }, [allEvents]);
+
+  const liveEvents = useMemo(() =>
+    allEvents.filter(e => e.status === EventStatus.LIVE),
+    [allEvents]
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
@@ -66,7 +73,7 @@ export default function HomePage() {
               {viewTab === 'LIVE' ? 'EN VIVO' : viewTab === 'RESULTS' ? 'RESULTADOS' : 'EVENTOS'}
             </h2>
             <span className="font-mono text-xs text-muted">
-              {filteredEvents.length} evento{filteredEvents.length !== 1 ? 's' : ''}
+              {loading ? '...' : `${filteredEvents.length} evento${filteredEvents.length !== 1 ? 's' : ''}`}
             </span>
           </div>
 
@@ -82,7 +89,7 @@ export default function HomePage() {
 
         {/* Sidebar */}
         <div className="space-y-4">
-          <Sidebar />
+          <Sidebar events={allEvents} />
           {liveEvents.length > 0 && (
             <LiveScoreboard events={liveEvents} />
           )}

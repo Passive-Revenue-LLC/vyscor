@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ViewTab } from '@/types';
-import { getLiveCount } from '@/lib/mock-data';
 
 interface NavbarProps {
   activeTab: ViewTab;
   onTabChange: (tab: ViewTab) => void;
+  liveCount?: number;
 }
 
 const tabs: { key: ViewTab; label: string }[] = [
@@ -16,9 +16,7 @@ const tabs: { key: ViewTab; label: string }[] = [
   { key: 'RESULTS', label: 'RESULTADOS' },
 ];
 
-export default function Navbar({ activeTab, onTabChange }: NavbarProps) {
-  const liveCount = getLiveCount();
-
+export default function Navbar({ activeTab, onTabChange, liveCount = 0 }: NavbarProps) {
   return (
     <nav className="sticky top-0 z-50 bg-bg-primary/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">

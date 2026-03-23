@@ -1,23 +1,24 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { mockEvents } from '@/lib/mock-data';
+import { useEvents } from '@/hooks/useEvents';
 import { EventStatus, FilterTab } from '@/types';
 import EventGrid from '@/components/events/EventGrid';
 import EventFilters from '@/components/events/EventFilters';
 
-export default function ResultadosPage() {
+export default function ResultsPage() {
   const [filter, setFilter] = useState<FilterTab>('TODOS');
+  const { events: allEvents, loading } = useEvents({ status: EventStatus.FINISHED });
 
   const events = useMemo(() => {
-    let filtered = mockEvents.filter((e) => e.status === EventStatus.FINISHED);
+    let filtered = allEvents;
     if (filter !== 'TODOS') {
       filtered = filtered.filter((e) => e.sport === filter);
     }
     return filtered.sort(
       (a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime()
     );
-  }, [filter]);
+  }, [allEvents, filter]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">

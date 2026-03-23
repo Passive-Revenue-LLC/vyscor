@@ -1,9 +1,9 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { mockEvents } from '@/lib/mock-data';
 import { Sport, FilterTab, SPORT_CONFIG, EventStatus } from '@/types';
-import { cn, isEsport } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+import { useEvents } from '@/hooks/useEvents';
 import EventGrid from '@/components/events/EventGrid';
 
 const esportFilters: { key: FilterTab; label: string; emoji: string }[] = [
@@ -17,18 +17,15 @@ const esportFilters: { key: FilterTab; label: string; emoji: string }[] = [
 
 export default function EsportsPage() {
   const [filter, setFilter] = useState<FilterTab>('TODOS');
+  const { events: allEvents, loading } = useEvents({ esportsOnly: true, refreshInterval: 60000 });
 
   const events = useMemo(() => {
-    let filtered = mockEvents.filter((e) => isEsport(e.sport));
+    let filtered = allEvents;
     if (filter !== 'TODOS') {
       filtered = filtered.filter((e) => e.sport === filter);
     }
-    return filtered.sort((a, b) => {
-      if (a.status === EventStatus.LIVE && b.status !== EventStatus.LIVE) return -1;
-      if (a.status !== EventStatus.LIVE && b.status === EventStatus.LIVE) return 1;
-      return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
-    });
-  }, [filter]);
+    return filtered;
+  }, [allEvents, filter]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
@@ -37,7 +34,7 @@ export default function EsportsPage() {
           E-SPORTS
         </h1>
         <span className="font-mono text-xs text-muted">
-          {events.length} evento{events.length !== 1 ? 's' : ''}
+          {loading ? '...' : `${events.length} evento${events.length !== 1 ? 's' : ''}`}
         </span>
       </div>
 

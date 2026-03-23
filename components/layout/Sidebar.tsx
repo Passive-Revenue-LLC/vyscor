@@ -1,15 +1,18 @@
 'use client';
 
-import { mockEvents, getLiveCount } from '@/lib/mock-data';
-import { EventStatus, Sport, SPORT_CONFIG } from '@/types';
+import { Event, EventStatus, Sport, SPORT_CONFIG } from '@/types';
 
-export default function Sidebar() {
-  const liveCount = getLiveCount();
-  const upcomingCount = mockEvents.filter(e => e.status === EventStatus.UPCOMING).length;
-  const finishedCount = mockEvents.filter(e => e.status === EventStatus.FINISHED).length;
+interface SidebarProps {
+  events: Event[];
+}
+
+export default function Sidebar({ events }: SidebarProps) {
+  const liveCount = events.filter(e => e.status === EventStatus.LIVE).length;
+  const upcomingCount = events.filter(e => e.status === EventStatus.UPCOMING).length;
+  const finishedCount = events.filter(e => e.status === EventStatus.FINISHED).length;
 
   const sportCounts = Object.values(Sport).reduce((acc, sport) => {
-    acc[sport] = mockEvents.filter(e => e.sport === sport).length;
+    acc[sport] = events.filter(e => e.sport === sport).length;
     return acc;
   }, {} as Record<Sport, number>);
 

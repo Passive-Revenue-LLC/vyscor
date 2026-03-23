@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { mockEvents } from '@/lib/mock-data';
+import { useEvents } from '@/hooks/useEvents';
 import { EventStatus, SPORT_CONFIG } from '@/types';
 import { cn, getStatusLabel, formatDateTime, getRelativeTime } from '@/lib/utils';
 import OddsDisplay from '@/components/betting/OddsDisplay';
@@ -15,14 +15,24 @@ type DetailTab = 'RESUMEN' | 'ESTADISTICAS' | 'H2H' | 'ALINEACION';
 export default function EventDetailPage() {
   const params = useParams();
   const [activeTab, setActiveTab] = useState<DetailTab>('RESUMEN');
-  const event = mockEvents.find((e) => e.id === params.id);
+  const { events: allEvents, loading } = useEvents({ refreshInterval: 30000 });
+
+  const event = allEvents.find((e) => e.id === params.id);
 
   const relatedEvents = useMemo(() => {
     if (!event) return [];
-    return mockEvents
+    return allEvents
       .filter((e) => e.id !== event.id && e.league === event.league)
       .slice(0, 3);
-  }, [event]);
+  }, [event, allEvents]);
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 text-center">
+        <p className="font-mono text-muted">Cargando evento...</p>
+      </div>
+    );
+  }
 
   if (!event) {
     return (
