@@ -18,7 +18,7 @@ export default function FeaturedMatch({ event }: FeaturedMatchProps) {
         {/* Top accent line */}
         <div className="h-[2px] bg-gradient-to-r from-cyber-cyan to-cyber-purple" />
 
-        <div className="p-5">
+        <div className="p-3 sm:p-5">
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -39,37 +39,37 @@ export default function FeaturedMatch({ event }: FeaturedMatchProps) {
           </div>
 
           {/* Teams & Score */}
-          <div className="flex items-center justify-between">
-            <div className="flex-1 text-center">
-              <p className="font-body font-semibold text-base sm:text-lg text-[#e8e8f0]">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex-1 text-center min-w-0">
+              <p className="font-body font-semibold text-sm sm:text-lg text-[#e8e8f0] truncate">
                 {event.homeTeam}
               </p>
             </div>
 
-            <div className="px-4 text-center">
+            <div className="px-2 sm:px-4 text-center shrink-0">
               {isLive || event.status === EventStatus.FINISHED ? (
                 <p className={cn(
-                  'font-mono text-3xl font-bold',
+                  'font-mono text-2xl sm:text-3xl font-bold',
                   isLive ? 'text-cyber-red' : 'text-[#e8e8f0]'
                 )}>
                   {event.homeScore} - {event.awayScore}
                 </p>
               ) : (
-                <p className="font-mono text-sm text-cyber-cyan">
+                <p className="font-mono text-xs sm:text-sm text-cyber-cyan">
                   {getRelativeTime(event.startTime)}
                 </p>
               )}
             </div>
 
-            <div className="flex-1 text-center">
-              <p className="font-body font-semibold text-base sm:text-lg text-[#e8e8f0]">
+            <div className="flex-1 text-center min-w-0">
+              <p className="font-body font-semibold text-sm sm:text-lg text-[#e8e8f0] truncate">
                 {event.awayTeam}
               </p>
             </div>
           </div>
 
           {/* Meta chips */}
-          <div className="flex items-center justify-center gap-2 mt-4">
+          <div className="flex items-center justify-center gap-2 mt-4 flex-wrap">
             {event.venue && (
               <span className="px-2 py-0.5 bg-bg-tertiary rounded text-[10px] font-mono text-muted">
                 {event.venue}

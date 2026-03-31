@@ -107,36 +107,36 @@ export default function EventDetailPage() {
           </div>
 
           {/* Teams & score */}
-          <div className="flex items-center justify-between">
-            <div className="flex-1 text-center">
-              <p className="font-body text-xl sm:text-2xl font-bold text-[#e8e8f0]">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex-1 text-center min-w-0">
+              <p className="font-body text-base sm:text-xl md:text-2xl font-bold text-[#e8e8f0] break-words line-clamp-2">
                 {event.homeTeam}
               </p>
             </div>
-            <div className="px-6 text-center">
+            <div className="px-2 sm:px-6 text-center shrink-0">
               {hasScore ? (
                 <p className={cn(
-                  'font-mono text-4xl sm:text-5xl font-bold',
+                  'font-mono text-2xl sm:text-4xl md:text-5xl font-bold',
                   isLive ? 'text-cyber-red' : 'text-[#e8e8f0]'
                 )}>
                   {event.homeScore} - {event.awayScore}
                 </p>
               ) : (
                 <div className="text-center">
-                  <p className="font-mono text-sm text-cyber-cyan">{getRelativeTime(event.startTime)}</p>
+                  <p className="font-mono text-xs sm:text-sm text-cyber-cyan">{getRelativeTime(event.startTime)}</p>
                   <p className="font-mono text-[10px] text-muted mt-1">{formatDateTime(event.startTime)}</p>
                 </div>
               )}
             </div>
-            <div className="flex-1 text-center">
-              <p className="font-body text-xl sm:text-2xl font-bold text-[#e8e8f0]">
+            <div className="flex-1 text-center min-w-0">
+              <p className="font-body text-base sm:text-xl md:text-2xl font-bold text-[#e8e8f0] break-words line-clamp-2">
                 {event.awayTeam}
               </p>
             </div>
           </div>
 
           {/* Meta */}
-          <div className="flex items-center justify-center gap-3 mt-4">
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mt-4 flex-wrap">
             {event.venue && (
               <span className="px-2.5 py-1 bg-bg-tertiary rounded text-[10px] font-mono text-muted">
                 {event.venue}
@@ -157,13 +157,13 @@ export default function EventDetailPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-6 overflow-x-auto">
+      <div className="flex gap-1 mb-6 overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={cn(
-              'px-4 py-2 rounded-lg font-mono text-xs tracking-wide transition-all duration-150',
+              'px-3 sm:px-4 py-2.5 rounded-lg font-mono text-[11px] sm:text-xs tracking-wide transition-all duration-150 whitespace-nowrap',
               activeTab === tab
                 ? 'bg-cyber-cyan text-bg-primary font-bold'
                 : 'text-muted hover:text-[#e8e8f0] hover:bg-bg-tertiary'
@@ -286,7 +286,7 @@ function AnalysisView({
 }) {
   if (!analysis && !loading && !error) {
     return (
-      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+      <div className="bg-bg-card border border-border rounded-lg p-6 sm:p-8 text-center">
         <div className="mb-4">
           <span className="text-3xl">🤖</span>
         </div>
@@ -298,7 +298,7 @@ function AnalysisView({
         </p>
         <button
           onClick={onGenerate}
-          className="px-6 py-2.5 bg-gradient-to-r from-cyber-cyan to-cyber-purple rounded-lg font-mono text-xs font-bold text-bg-primary hover:opacity-90 transition-opacity"
+          className="px-6 py-3 bg-gradient-to-r from-cyber-cyan to-cyber-purple rounded-lg font-mono text-xs font-bold text-bg-primary hover:opacity-90 transition-opacity active:scale-95"
         >
           Generar Analisis
         </button>
@@ -308,7 +308,7 @@ function AnalysisView({
 
   if (loading) {
     return (
-      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+      <div className="bg-bg-card border border-border rounded-lg p-6 sm:p-8 text-center">
         <div className="flex flex-col items-center gap-3">
           <div className="w-6 h-6 border-2 border-cyber-cyan border-t-transparent rounded-full animate-spin" />
           <p className="font-mono text-sm text-muted">Analizando partido...</p>
@@ -322,7 +322,7 @@ function AnalysisView({
 
   if (error) {
     return (
-      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+      <div className="bg-bg-card border border-border rounded-lg p-6 sm:p-8 text-center">
         <p className="font-mono text-sm text-cyber-red mb-3">{error}</p>
         <button
           onClick={onGenerate}
@@ -370,8 +370,8 @@ function AnalysisView({
           <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
             PREDICCION
           </h3>
-          <span className={cn('ml-auto font-mono text-[10px] font-bold uppercase', confianzaColor)}>
-            Confianza: {analysis.prediccion.confianza}
+          <span className={cn('ml-auto font-mono text-[9px] sm:text-[10px] font-bold uppercase shrink-0', confianzaColor)}>
+            {analysis.prediccion.confianza}
           </span>
         </div>
         <div className="flex items-center gap-3 mb-2">
@@ -451,7 +451,7 @@ function DetailSection({
 }) {
   if (loading) {
     return (
-      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+      <div className="bg-bg-card border border-border rounded-lg p-6 sm:p-8 text-center">
         <div className="flex items-center justify-center gap-2">
           <div className="w-4 h-4 border-2 border-cyber-cyan border-t-transparent rounded-full animate-spin" />
           <p className="font-mono text-sm text-muted">Cargando datos...</p>
@@ -462,7 +462,7 @@ function DetailSection({
 
   if (!data || !data.available) {
     return (
-      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+      <div className="bg-bg-card border border-border rounded-lg p-6 sm:p-8 text-center">
         <p className="font-mono text-sm text-muted">
           {data?.message || 'No hay datos disponibles para este evento'}
         </p>
@@ -483,11 +483,11 @@ function StatisticsView({
   awayTeam: string;
 }) {
   return (
-    <div className="bg-bg-card border border-border rounded-lg p-4">
-      <div className="flex items-center justify-between mb-4">
-        <span className="font-mono text-xs text-cyber-cyan font-bold truncate max-w-[40%]">{homeTeam}</span>
-        <span className="font-orbitron text-[10px] text-muted tracking-widest">ESTADISTICAS</span>
-        <span className="font-mono text-xs text-cyber-purple2 font-bold truncate max-w-[40%] text-right">{awayTeam}</span>
+    <div className="bg-bg-card border border-border rounded-lg p-3 sm:p-4">
+      <div className="flex items-center justify-between gap-2 mb-4">
+        <span className="font-mono text-[11px] sm:text-xs text-cyber-cyan font-bold truncate max-w-[35%] sm:max-w-[40%]">{homeTeam}</span>
+        <span className="font-orbitron text-[9px] sm:text-[10px] text-muted tracking-widest shrink-0">ESTADISTICAS</span>
+        <span className="font-mono text-[11px] sm:text-xs text-cyber-purple2 font-bold truncate max-w-[35%] sm:max-w-[40%] text-right">{awayTeam}</span>
       </div>
       <div className="space-y-3">
         {statistics.map((stat) => {
@@ -499,14 +499,14 @@ function StatisticsView({
 
           return (
             <div key={stat.type}>
-              <div className="flex items-center justify-between mb-1">
-                <span className="font-mono text-xs text-[#e8e8f0] w-16 text-left">
+              <div className="flex items-center justify-between mb-1 gap-1">
+                <span className="font-mono text-[11px] sm:text-xs text-[#e8e8f0] w-10 sm:w-16 text-left shrink-0">
                   {formatStatDisplay(stat.home)}
                 </span>
-                <span className="font-mono text-[10px] text-muted flex-1 text-center">
+                <span className="font-mono text-[9px] sm:text-[10px] text-muted flex-1 text-center truncate">
                   {translateStatType(stat.type)}
                 </span>
-                <span className="font-mono text-xs text-[#e8e8f0] w-16 text-right">
+                <span className="font-mono text-[11px] sm:text-xs text-[#e8e8f0] w-10 sm:w-16 text-right shrink-0">
                   {formatStatDisplay(stat.away)}
                 </span>
               </div>
@@ -550,25 +550,27 @@ function H2HView({ matches }: { matches: H2HMatch[] }) {
           });
 
           return (
-            <div key={i} className="px-4 py-3 flex items-center gap-3">
-              <span className="font-mono text-[10px] text-muted w-20 shrink-0">{dateStr}</span>
+            <div key={i} className="px-3 sm:px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+              <div className="flex items-center justify-between sm:contents">
+                <span className="font-mono text-[10px] text-muted shrink-0">{dateStr}</span>
+                <span className="font-mono text-[9px] text-muted truncate sm:order-last sm:w-20 sm:text-right">
+                  {match.league}
+                </span>
+              </div>
               <div className="flex-1 flex items-center justify-center gap-2 min-w-0">
-                <span className="font-mono text-xs text-[#e8e8f0] truncate text-right flex-1">
+                <span className="font-mono text-[11px] sm:text-xs text-[#e8e8f0] truncate text-right flex-1">
                   {match.homeTeam}
                 </span>
                 <span className={cn(
-                  'font-mono text-sm font-bold px-2 py-0.5 rounded shrink-0',
+                  'font-mono text-xs sm:text-sm font-bold px-2 py-0.5 rounded shrink-0',
                   match.homeScore !== null ? 'text-[#e8e8f0] bg-bg-tertiary' : 'text-muted'
                 )}>
                   {match.homeScore ?? '-'} - {match.awayScore ?? '-'}
                 </span>
-                <span className="font-mono text-xs text-[#e8e8f0] truncate flex-1">
+                <span className="font-mono text-[11px] sm:text-xs text-[#e8e8f0] truncate flex-1">
                   {match.awayTeam}
                 </span>
               </div>
-              <span className="font-mono text-[9px] text-muted w-24 shrink-0 text-right truncate">
-                {match.league}
-              </span>
             </div>
           );
         })}

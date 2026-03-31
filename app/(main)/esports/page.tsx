@@ -39,13 +39,13 @@ export default function EsportsPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex gap-2 overflow-x-auto pb-2 mb-4">
+      <div className="flex gap-1.5 sm:gap-2 overflow-x-auto pb-2 mb-4 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
         {esportFilters.map((f) => (
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
             className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs whitespace-nowrap transition-all duration-150 border',
+              'flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg font-mono text-[11px] sm:text-xs whitespace-nowrap transition-all duration-150 border',
               filter === f.key
                 ? 'border-cyber-purple2 text-cyber-purple2 bg-cyber-purple2/5'
                 : 'border-border-hover bg-bg-tertiary text-muted hover:text-[#e8e8f0]'

@@ -17,7 +17,7 @@ export default function Sidebar({ events }: SidebarProps) {
   }, {} as Record<Sport, number>);
 
   return (
-    <aside className="w-full lg:w-[280px] shrink-0 space-y-4">
+    <aside className="w-full lg:w-[280px] shrink-0 space-y-4 hidden lg:block">
       {/* Stats card */}
       <div className="bg-bg-card border border-border rounded-lg p-4">
         <h3 className="font-orbitron text-xs font-bold text-cyber-cyan tracking-wider mb-4">

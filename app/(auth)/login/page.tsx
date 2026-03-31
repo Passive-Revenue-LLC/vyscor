@@ -48,7 +48,7 @@ export default function LoginPage() {
           <p className="font-mono text-xs text-muted mt-2">Inicia sesion en tu cuenta</p>
         </div>
 
-        <div className="bg-bg-card border border-border rounded-xl p-6">
+        <div className="bg-bg-card border border-border rounded-xl p-4 sm:p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div className="px-3 py-2 bg-cyber-red/10 border border-cyber-red/30 rounded-lg">

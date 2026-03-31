@@ -19,14 +19,14 @@ export default function EventCard({ event, showOdds = false }: EventCardProps) {
     <Link href={`/events/${event.id}`}>
       <div
         className={cn(
-          'bg-bg-card border border-border rounded-lg p-4 border-l-2 transition-all duration-150',
+          'bg-bg-card border border-border rounded-lg p-3 sm:p-4 border-l-2 transition-all duration-150',
           'hover:translate-x-[2px] hover:border-border-hover cursor-pointer',
           getStatusBorderColor(event.status)
         )}
       >
-        <div className="grid grid-cols-[38px_1fr_auto] gap-3 items-start">
+        <div className="grid grid-cols-[32px_1fr_auto] sm:grid-cols-[38px_1fr_auto] gap-2 sm:gap-3 items-start">
           {/* Sport icon */}
-          <div className="w-[38px] h-[38px] rounded-lg bg-bg-tertiary border border-border flex items-center justify-center text-lg">
+          <div className="w-8 h-8 sm:w-[38px] sm:h-[38px] rounded-lg bg-bg-tertiary border border-border flex items-center justify-center text-base sm:text-lg">
             {sportConfig.emoji}
           </div>
 

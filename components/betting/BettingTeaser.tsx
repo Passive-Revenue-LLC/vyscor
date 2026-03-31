@@ -71,7 +71,7 @@ export default function BettingTeaser() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 bg-bg-primary border border-border rounded-lg font-mono text-xs text-[#e8e8f0] placeholder:text-muted focus:outline-none focus:border-cyber-purple transition-colors duration-150"
+            className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-xs text-[#e8e8f0] placeholder:text-muted focus:outline-none focus:border-cyber-purple transition-colors duration-150"
           />
           <button
             type="submit"

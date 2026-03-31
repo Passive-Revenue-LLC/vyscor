@@ -66,7 +66,7 @@ export default function PreferencesPage() {
         Selecciona los deportes que te interesan. Apareceran primero en tus filtros.
       </p>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mb-8">
         {Object.entries(SPORT_CONFIG).map(([sport, config]) => {
           const isSelected = selected.includes(sport);
           return (
@@ -74,7 +74,7 @@ export default function PreferencesPage() {
               key={sport}
               onClick={() => toggleCategory(sport)}
               className={cn(
-                'flex items-center gap-2 px-4 py-3 rounded-lg border font-mono text-sm transition-all duration-150',
+                'flex items-center gap-2 px-3 sm:px-4 py-3 rounded-lg border font-mono text-xs sm:text-sm transition-all duration-150',
                 isSelected
                   ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan'
                   : 'border-border bg-bg-tertiary text-muted hover:text-[#e8e8f0] hover:border-border-hover'
