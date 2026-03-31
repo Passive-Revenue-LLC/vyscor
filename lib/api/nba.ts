@@ -7,8 +7,8 @@ interface NbaGame {
   status: { short: number; long: string };
   arena: { name: string; city: string; state: string };
   teams: {
-    home: { name: string; nickname: string };
-    visitors: { name: string; nickname: string };
+    home: { id: number; name: string; nickname: string };
+    visitors: { id: number; name: string; nickname: string };
   };
   scores: {
     home: { points: number | null };
@@ -53,5 +53,9 @@ export async function fetchNbaGames(date?: string) {
     venue: game.arena?.name
       ? `${game.arena.name}, ${game.arena.city}`
       : undefined,
+    metadata: {
+      homeTeamId: game.teams.home.id,
+      awayTeamId: game.teams.visitors.id,
+    },
   }));
 }

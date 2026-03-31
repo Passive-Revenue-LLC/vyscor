@@ -13,8 +13,8 @@ interface StandardGame {
   status: { short: string; long?: string };
   league: { name: string };
   teams: {
-    home: { name: string };
-    away: { name: string };
+    home: { id: number; name: string };
+    away: { id: number; name: string };
   };
   scores: Record<string, unknown>;
 }
@@ -164,6 +164,10 @@ async function fetchSportGames(config: SportApiConfig, date?: string) {
       awayScore: scores.away ?? undefined,
       status: STATUS_MAP[game.status.short] || 'UPCOMING',
       startTime: game.date,
+      metadata: {
+        homeTeamId: game.teams.home.id,
+        awayTeamId: game.teams.away.id,
+      },
     };
   });
 }

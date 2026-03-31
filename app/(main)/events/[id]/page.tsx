@@ -453,6 +453,7 @@ function formatStatDisplay(val: string | number | null): string {
 
 function translateStatType(type: string): string {
   const translations: Record<string, string> = {
+    // Football
     'Ball Possession': 'Posesion',
     'Total Shots': 'Tiros totales',
     'Shots on Goal': 'Tiros a puerta',
@@ -470,11 +471,47 @@ function translateStatType(type: string): string {
     'Passes accurate': 'Pases precisos',
     'Passes %': 'Precision pases',
     'expected_goals': 'xG',
+    // Esports
+    'Maps Won': 'Mapas ganados',
+    'Format': 'Formato',
+    'Total Duration': 'Duracion total',
+    // NBA / Basketball
+    'Points': 'Puntos',
+    'Field Goals Made': 'Tiros anotados',
+    'Field Goals Attempted': 'Tiros intentados',
+    'FG%': '% Tiros de campo',
+    '3-Pointers Made': 'Triples anotados',
+    '3-Pointers Attempted': 'Triples intentados',
+    '3P%': '% Triples',
+    'Free Throws Made': 'Tiros libres anotados',
+    'Free Throws Attempted': 'Tiros libres intentados',
+    'FT%': '% Tiros libres',
+    'Total Rebounds': 'Rebotes totales',
+    'Offensive Rebounds': 'Rebotes ofensivos',
+    'Defensive Rebounds': 'Rebotes defensivos',
+    'Assists': 'Asistencias',
+    'Steals': 'Robos',
+    'Blocks': 'Tapones',
+    'Turnovers': 'Perdidas',
+    'Personal Fouls': 'Faltas personales',
+    'Fast Break Points': 'Puntos contraataque',
+    'Points in Paint': 'Puntos en la zona',
+    '2nd Chance Points': 'Puntos 2da oportunidad',
+    'Points off Turnovers': 'Puntos tras perdida',
   };
   return translations[type] || type;
 }
 
 function translatePosition(pos: string): string {
-  const map: Record<string, string> = { G: 'POR', D: 'DEF', M: 'MED', F: 'DEL' };
+  const map: Record<string, string> = {
+    // Football
+    G: 'POR', D: 'DEF', M: 'MED', F: 'DEL',
+    // Esports (LoL)
+    top: 'TOP', jungle: 'JNG', mid: 'MID', adc: 'ADC', support: 'SUP',
+    // Esports (CS2/Valorant)
+    rifler: 'Rifler', awper: 'AWPer', igl: 'IGL', lurker: 'Lurker', entry: 'Entry',
+    // Generic esports
+    Player: 'Jugador',
+  };
   return map[pos] || pos;
 }

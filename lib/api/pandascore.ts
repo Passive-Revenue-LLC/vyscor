@@ -7,7 +7,7 @@ interface PandaScoreMatch {
   status: string;
   scheduled_at: string;
   tournament: { name: string };
-  opponents: Array<{ opponent: { name: string; image_url: string } }>;
+  opponents: Array<{ opponent: { id: number; name: string; image_url: string } }>;
   results: Array<{ team_id: number; score: number }>;
   videogame: { slug: string };
   number_of_games: number;
@@ -65,6 +65,9 @@ export function mapPandaScoreToEvent(match: PandaScoreMatch) {
     streamUrl: match.streams_list?.[0]?.raw_url,
     metadata: {
       format: `BO${match.number_of_games}`,
+      homeTeamId: match.opponents?.[0]?.opponent?.id,
+      awayTeamId: match.opponents?.[1]?.opponent?.id,
+      videogameSlug: match.videogame.slug,
     },
   };
 }
