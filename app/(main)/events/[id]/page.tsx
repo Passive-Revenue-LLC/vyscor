@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEvents } from '@/hooks/useEvents';
 import { useEventDetails } from '@/hooks/useEventDetails';
+import { useEventAnalysis } from '@/hooks/useEventAnalysis';
+import type { MatchAnalysis } from '@/hooks/useEventAnalysis';
 import { EventStatus, SPORT_CONFIG } from '@/types';
 import { cn, getStatusLabel, formatDateTime, getRelativeTime } from '@/lib/utils';
 import OddsDisplay from '@/components/betting/OddsDisplay';
@@ -12,13 +14,14 @@ import EventCard from '@/components/events/EventCard';
 import Badge from '@/components/ui/Badge';
 import type { FixtureStatistic, H2HMatch, TeamLineup } from '@/lib/api/apifootball';
 
-type DetailTab = 'RESUMEN' | 'ESTADISTICAS' | 'H2H' | 'ALINEACION';
+type DetailTab = 'RESUMEN' | 'ESTADISTICAS' | 'H2H' | 'ALINEACION' | 'IA';
 
 const TAB_TO_API: Record<DetailTab, string> = {
   RESUMEN: '',
   ESTADISTICAS: 'stats',
   H2H: 'h2h',
   ALINEACION: 'lineups',
+  IA: '',
 };
 
 export default function EventDetailPage() {
@@ -33,6 +36,17 @@ export default function EventDetailPage() {
     apiTab ? event : undefined,
     apiTab as 'stats' | 'h2h' | 'lineups'
   );
+
+  const {
+    analysis,
+    loading: analysisLoading,
+    error: analysisError,
+    fetchAnalysis,
+  } = useEventAnalysis(event);
+
+  // Fetch stats/h2h in background for AI context
+  const { data: statsData } = useEventDetails(event, 'stats');
+  const { data: h2hData } = useEventDetails(event, 'h2h');
 
   const relatedEvents = useMemo(() => {
     if (!event) return [];
@@ -65,7 +79,7 @@ export default function EventDetailPage() {
   const isFinished = event.status === EventStatus.FINISHED;
   const hasScore = (isLive || isFinished) && event.homeScore !== undefined;
 
-  const tabs: DetailTab[] = ['RESUMEN', 'ESTADISTICAS', 'H2H', 'ALINEACION'];
+  const tabs: DetailTab[] = ['RESUMEN', 'ESTADISTICAS', 'H2H', 'ALINEACION', 'IA'];
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
@@ -218,6 +232,23 @@ export default function EventDetailPage() {
           </DetailSection>
         )}
 
+        {activeTab === 'IA' && (
+          <AnalysisView
+            analysis={analysis}
+            loading={analysisLoading}
+            error={analysisError}
+            onGenerate={() =>
+              fetchAnalysis({
+                statistics: statsData?.statistics,
+                h2hMatches: h2hData?.matches,
+                lineups: detailData?.lineups,
+              })
+            }
+            homeTeam={event.homeTeam}
+            awayTeam={event.awayTeam}
+          />
+        )}
+
         {/* Related events */}
         {relatedEvents.length > 0 && (
           <div>
@@ -237,6 +268,177 @@ export default function EventDetailPage() {
 }
 
 // --- Sub-components ---
+
+function AnalysisView({
+  analysis,
+  loading,
+  error,
+  onGenerate,
+  homeTeam,
+  awayTeam,
+}: {
+  analysis: MatchAnalysis | null;
+  loading: boolean;
+  error: string | null;
+  onGenerate: () => void;
+  homeTeam: string;
+  awayTeam: string;
+}) {
+  if (!analysis && !loading && !error) {
+    return (
+      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+        <div className="mb-4">
+          <span className="text-3xl">🤖</span>
+        </div>
+        <h3 className="font-orbitron text-sm font-bold text-[#e8e8f0] tracking-wider mb-2">
+          ANALISIS CON IA
+        </h3>
+        <p className="font-mono text-xs text-muted mb-4 max-w-md mx-auto">
+          Genera un analisis inteligente del partido basado en estadisticas, historial y alineaciones disponibles.
+        </p>
+        <button
+          onClick={onGenerate}
+          className="px-6 py-2.5 bg-gradient-to-r from-cyber-cyan to-cyber-purple rounded-lg font-mono text-xs font-bold text-bg-primary hover:opacity-90 transition-opacity"
+        >
+          Generar Analisis
+        </button>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-6 h-6 border-2 border-cyber-cyan border-t-transparent rounded-full animate-spin" />
+          <p className="font-mono text-sm text-muted">Analizando partido...</p>
+          <p className="font-mono text-[10px] text-muted/60">
+            Procesando {homeTeam} vs {awayTeam}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-bg-card border border-border rounded-lg p-8 text-center">
+        <p className="font-mono text-sm text-cyber-red mb-3">{error}</p>
+        <button
+          onClick={onGenerate}
+          className="px-4 py-2 bg-bg-tertiary rounded-lg font-mono text-xs text-muted hover:text-[#e8e8f0] transition-colors"
+        >
+          Reintentar
+        </button>
+      </div>
+    );
+  }
+
+  if (!analysis) return null;
+
+  const confianzaColor = {
+    alta: 'text-cyber-green',
+    media: 'text-cyber-amber',
+    baja: 'text-muted',
+  }[analysis.prediccion.confianza];
+
+  const confianzaBg = {
+    alta: 'bg-cyber-green/10 border-cyber-green/20',
+    media: 'bg-cyber-amber/10 border-cyber-amber/20',
+    baja: 'bg-bg-tertiary border-border',
+  }[analysis.prediccion.confianza];
+
+  return (
+    <div className="space-y-4">
+      {/* Resumen */}
+      <div className="bg-bg-card border border-border rounded-lg p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-sm">📋</span>
+          <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+            RESUMEN
+          </h3>
+        </div>
+        <p className="font-mono text-xs text-[#e8e8f0] leading-relaxed">
+          {analysis.resumen}
+        </p>
+      </div>
+
+      {/* Prediccion */}
+      <div className={cn('border rounded-lg p-4', confianzaBg)}>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-sm">🎯</span>
+          <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+            PREDICCION
+          </h3>
+          <span className={cn('ml-auto font-mono text-[10px] font-bold uppercase', confianzaColor)}>
+            Confianza: {analysis.prediccion.confianza}
+          </span>
+        </div>
+        <div className="flex items-center gap-3 mb-2">
+          <span className="font-mono text-sm font-bold text-cyber-cyan">
+            {analysis.prediccion.favorito}
+          </span>
+        </div>
+        <p className="font-mono text-xs text-muted leading-relaxed">
+          {analysis.prediccion.razon}
+        </p>
+      </div>
+
+      {/* Metricas clave */}
+      <div className="bg-bg-card border border-border rounded-lg overflow-hidden">
+        <div className="px-4 py-3 border-b border-border flex items-center gap-2">
+          <span className="text-sm">📊</span>
+          <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+            METRICAS CLAVE
+          </h3>
+        </div>
+        <div className="divide-y divide-border">
+          {analysis.metricas_clave.map((metrica, i) => (
+            <div key={i} className="px-4 py-3">
+              <div className="flex items-center justify-between mb-1">
+                <span className="font-mono text-xs font-bold text-[#e8e8f0]">
+                  {metrica.titulo}
+                </span>
+                <span className="font-mono text-xs text-cyber-cyan font-bold">
+                  {metrica.valor}
+                </span>
+              </div>
+              <p className="font-mono text-[10px] text-muted leading-relaxed">
+                {metrica.interpretacion}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Analisis global */}
+      <div className="bg-bg-card border border-border rounded-lg p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-sm">🧠</span>
+          <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+            ANALISIS GLOBAL
+          </h3>
+        </div>
+        <p className="font-mono text-xs text-[#e8e8f0] leading-relaxed">
+          {analysis.analisis_global}
+        </p>
+      </div>
+
+      {/* Regenerate button */}
+      <div className="text-center">
+        <button
+          onClick={onGenerate}
+          className="px-4 py-2 bg-bg-tertiary rounded-lg font-mono text-[10px] text-muted hover:text-[#e8e8f0] transition-colors"
+        >
+          Regenerar analisis
+        </button>
+        <p className="font-mono text-[9px] text-muted/50 mt-2">
+          Analisis generado por IA. Los datos pueden no ser exactos.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 function DetailSection({
   loading,
