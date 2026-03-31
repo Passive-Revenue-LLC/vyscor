@@ -28,13 +28,18 @@ export function useEventDetails(event: Event | undefined, tab: DetailTab) {
       fixtureId: event.externalId,
       sport: event.sport,
       tab,
+      homeTeam: event.homeTeam,
+      awayTeam: event.awayTeam,
+      date: event.startTime.split('T')[0],
     });
 
-    const homeTeamId = (event.metadata as Record<string, unknown>)?.homeTeamId;
-    const awayTeamId = (event.metadata as Record<string, unknown>)?.awayTeamId;
+    const meta = event.metadata as Record<string, unknown> | undefined;
+    const homeTeamId = meta?.homeTeamId;
+    const awayTeamId = meta?.awayTeamId;
 
     if (homeTeamId) params.set('homeTeamId', String(homeTeamId));
     if (awayTeamId) params.set('awayTeamId', String(awayTeamId));
+    if (event.league) params.set('league', event.league);
 
     setLoading(true);
     fetch(`/api/events/details?${params}`)
@@ -42,7 +47,7 @@ export function useEventDetails(event: Event | undefined, tab: DetailTab) {
       .then((json) => setData(json))
       .catch(() => setData({ available: false }))
       .finally(() => setLoading(false));
-  }, [event?.externalId, event?.sport, event?.metadata, tab]);
+  }, [event?.externalId, event?.sport, event?.metadata, event?.homeTeam, event?.awayTeam, event?.startTime, tab]);
 
   return { data, loading };
 }

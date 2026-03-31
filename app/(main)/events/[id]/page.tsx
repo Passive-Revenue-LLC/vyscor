@@ -498,6 +498,36 @@ function translateStatType(type: string): string {
     'Points in Paint': 'Puntos en la zona',
     '2nd Chance Points': 'Puntos 2da oportunidad',
     'Points off Turnovers': 'Puntos tras perdida',
+    // OpenDota (Dota 2)
+    'Result': 'Resultado',
+    'Score': 'Marcador',
+    'Kills': 'Asesinatos',
+    'Deaths': 'Muertes',
+    'KDA': 'KDA',
+    'Last Hits': 'Ultimo golpe',
+    'Denies': 'Denegaciones',
+    'GPM (avg)': 'Oro/min (prom)',
+    'XPM (avg)': 'XP/min (prom)',
+    'Hero Damage': 'Dano a heroes',
+    'Tower Damage': 'Dano a torres',
+    'Hero Healing': 'Curacion',
+    'Towers Standing': 'Torres en pie',
+    'Duration': 'Duracion',
+    'First Blood': 'Primera sangre',
+    // NHL (Hockey)
+    'Tiros a puerta': 'Tiros a puerta',
+    '% Faceoffs ganados': '% Faceoffs ganados',
+    'Power Play': 'Power Play',
+    '% Power Play': '% Power Play',
+    'Minutos de penalizacion': 'Min. penalizacion',
+    'Golpes': 'Golpes',
+    'Entregas': 'Entregas',
+    'Recuperaciones': 'Recuperaciones',
+    // Riot LoL Esports
+    'Torres': 'Torres',
+    'Dragones': 'Dragones',
+    'Barones': 'Barones',
+    'Gold': 'Oro',
   };
   return translations[type] || type;
 }
