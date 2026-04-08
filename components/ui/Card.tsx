@@ -7,7 +7,12 @@ interface CardProps {
 
 export default function Card({ children, className }: CardProps) {
   return (
-    <div className={cn('bg-bg-card border border-border rounded-lg p-4', className)}>
+    <div
+      className={cn(
+        'bg-[#1B1B1B] border border-[#252525] rounded-[10px] p-4 transition-colors duration-150',
+        className
+      )}
+    >
       {children}
     </div>
   );

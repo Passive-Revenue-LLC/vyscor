@@ -5,12 +5,12 @@ interface SkeletonProps {
 }
 
 export default function Skeleton({ className }: SkeletonProps) {
-  return <div className={cn('skeleton rounded-lg', className)} />;
+  return <div className={cn('skeleton rounded-md', className)} />;
 }
 
 export function EventCardSkeleton() {
   return (
-    <div className="bg-bg-card border border-border rounded-lg p-4 border-l-2 border-l-border">
+    <div className="bg-[#1B1B1B] border border-[#252525] rounded-[10px] p-4 border-l-2 border-l-[#252525]">
       <div className="grid grid-cols-[38px_1fr_auto] gap-3">
         <Skeleton className="w-[38px] h-[38px]" />
         <div className="space-y-2">

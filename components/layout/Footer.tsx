@@ -1,23 +1,28 @@
+import Image from 'next/image';
+
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-bg-secondary mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-          <div className="flex items-baseline gap-2">
-            <span className="font-orbitron font-black text-sm text-cyber-cyan">VYS</span>
-            <span className="font-orbitron font-black text-sm text-cyber-purple2">COR</span>
-          </div>
-          <p className="font-mono text-[10px] sm:text-xs text-muted text-center">
+    <footer className="border-t border-[#252525] bg-[#111111] mt-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-7">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <Image
+            src="/assets/logo-white.svg"
+            alt="Vyscor"
+            width={120}
+            height={24}
+            className="h-5 w-auto"
+          />
+          <p className="font-syncopate text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6B6B] text-center">
             &copy; 2026 VYSCOR &middot; Todos los derechos reservados &middot; +18
           </p>
-          <div className="flex items-center gap-4">
-            <a href="#" className="font-mono text-[11px] sm:text-xs text-muted hover:text-cyber-cyan transition-colors duration-150 py-1">
+          <div className="flex items-center gap-5">
+            <a href="#" className="font-syncopate text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6B6B] hover:text-white transition-colors duration-150 py-1">
               Terminos
             </a>
-            <a href="#" className="font-mono text-[11px] sm:text-xs text-muted hover:text-cyber-cyan transition-colors duration-150 py-1">
+            <a href="#" className="font-syncopate text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6B6B] hover:text-white transition-colors duration-150 py-1">
               Privacidad
             </a>
-            <a href="#" className="font-mono text-[11px] sm:text-xs text-muted hover:text-cyber-cyan transition-colors duration-150 py-1">
+            <a href="#" className="font-syncopate text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6B6B] hover:text-white transition-colors duration-150 py-1">
               Contacto
             </a>
           </div>

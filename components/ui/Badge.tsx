@@ -2,24 +2,29 @@ import { cn } from '@/lib/utils';
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: 'cyan' | 'red' | 'purple' | 'amber' | 'green' | 'muted';
+  variant?: 'live' | 'upcoming' | 'finished' | 'purple' | 'muted' | 'cyan' | 'red' | 'amber' | 'green';
   className?: string;
 }
 
+// All badges live on dark surfaces and use the Vyscor purple/gray palette only.
 const variantStyles: Record<string, string> = {
-  cyan: 'bg-cyber-cyan/10 text-cyber-cyan',
-  red: 'bg-cyber-red/10 text-cyber-red',
-  purple: 'bg-cyber-purple/10 text-cyber-purple2',
-  amber: 'bg-cyber-amber/10 text-cyber-amber',
-  green: 'bg-cyber-green/10 text-cyber-green',
-  muted: 'bg-bg-tertiary text-muted',
+  live: 'bg-[#6B00F0]/12 text-[#7C4CFF] border border-[#6B00F0]/30',
+  upcoming: 'bg-white/5 text-[#AAAAAA] border border-[#252525]',
+  finished: 'bg-transparent text-[#6B6B6B] border border-[#252525]',
+  purple: 'bg-[#6B00F0]/12 text-[#7C4CFF] border border-[#6B00F0]/30',
+  muted: 'bg-white/5 text-[#6B6B6B] border border-[#252525]',
+  // Legacy variant names map to brand-correct equivalents
+  cyan: 'bg-white/5 text-[#AAAAAA] border border-[#252525]',
+  red: 'bg-[#6B00F0]/12 text-[#7C4CFF] border border-[#6B00F0]/30',
+  amber: 'bg-white/5 text-[#AAAAAA] border border-[#252525]',
+  green: 'bg-[#6B00F0]/12 text-[#7C4CFF] border border-[#6B00F0]/30',
 };
 
 export default function Badge({ children, variant = 'muted', className }: BadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2 py-0.5 rounded-full font-orbitron text-[9px] font-bold tracking-wider',
+        'inline-flex items-center px-2 py-0.5 rounded font-syncopate text-[10px] font-bold uppercase tracking-[0.1em]',
         variantStyles[variant],
         className
       )}
