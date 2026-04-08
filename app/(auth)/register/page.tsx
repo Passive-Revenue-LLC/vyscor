@@ -49,11 +49,12 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center bg-bg-primary px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-baseline">
-            <span className="font-orbitron font-black text-3xl text-cyber-cyan text-glow-cyan">VYS</span>
-            <span className="font-orbitron font-black text-3xl text-cyber-purple2 text-glow-purple">COR</span>
+          <Link href="/" className="inline-flex items-center justify-center" aria-label="Vyscor">
+            <img src="/assets/logo-white.svg" alt="Vyscor" className="h-8 w-auto" />
           </Link>
-          <p className="font-mono text-xs text-muted mt-2">Crea tu cuenta</p>
+          <p className="font-syncopate text-[10px] font-bold uppercase tracking-[0.1em] text-[#6B6B6B] mt-4">
+            Crea tu cuenta
+          </p>
         </div>
 
         <div className="bg-bg-card border border-border rounded-xl p-4 sm:p-6">
@@ -69,7 +70,7 @@ export default function RegisterPage() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-sm text-[#e8e8f0] placeholder:text-muted focus:outline-none focus:border-cyber-cyan transition-colors duration-150"
+                className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-sm text-[#FFFFFF] placeholder:text-muted focus:outline-none focus:border-cyber-cyan transition-colors duration-150"
                 placeholder="Tu nombre"
               />
             </div>
@@ -80,7 +81,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-sm text-[#e8e8f0] placeholder:text-muted focus:outline-none focus:border-cyber-cyan transition-colors duration-150"
+                className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-sm text-[#FFFFFF] placeholder:text-muted focus:outline-none focus:border-cyber-cyan transition-colors duration-150"
                 placeholder="tu@email.com"
               />
             </div>
@@ -92,7 +93,7 @@ export default function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-sm text-[#e8e8f0] placeholder:text-muted focus:outline-none focus:border-cyber-cyan transition-colors duration-150"
+                className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-sm text-[#FFFFFF] placeholder:text-muted focus:outline-none focus:border-cyber-cyan transition-colors duration-150"
                 placeholder="Minimo 6 caracteres"
               />
             </div>
@@ -116,7 +117,7 @@ export default function RegisterPage() {
             </div>
             <button
               onClick={handleGoogleSignUp}
-              className="w-full px-4 py-2.5 bg-bg-tertiary border border-border text-[#e8e8f0] font-mono text-sm rounded-lg transition-all duration-150 hover:border-border-hover"
+              className="w-full px-4 py-2.5 bg-bg-tertiary border border-border text-[#FFFFFF] font-mono text-sm rounded-lg transition-all duration-150 hover:border-border-hover"
             >
               Registrarse con Google
             </button>

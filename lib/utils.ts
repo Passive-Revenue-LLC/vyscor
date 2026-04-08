@@ -48,19 +48,19 @@ export function getRelativeTime(dateString: string): string {
 
 export function getStatusColor(status: EventStatus): string {
   switch (status) {
-    case EventStatus.LIVE: return 'cyber-red';
-    case EventStatus.UPCOMING: return 'cyber-cyan';
-    case EventStatus.FINISHED: return 'muted';
-    case EventStatus.CANCELLED: return 'muted';
+    case EventStatus.LIVE: return '#7C4CFF';
+    case EventStatus.UPCOMING: return '#AAAAAA';
+    case EventStatus.FINISHED: return '#6B6B6B';
+    case EventStatus.CANCELLED: return '#6B6B6B';
   }
 }
 
 export function getStatusBorderColor(status: EventStatus): string {
   switch (status) {
-    case EventStatus.LIVE: return 'border-l-cyber-red';
-    case EventStatus.UPCOMING: return 'border-l-cyber-cyan';
-    case EventStatus.FINISHED: return 'border-l-muted';
-    case EventStatus.CANCELLED: return 'border-l-muted';
+    case EventStatus.LIVE: return 'border-l-[#6B00F0]';
+    case EventStatus.UPCOMING: return 'border-l-transparent';
+    case EventStatus.FINISHED: return 'border-l-transparent';
+    case EventStatus.CANCELLED: return 'border-l-transparent';
   }
 }
 

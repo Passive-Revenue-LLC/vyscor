@@ -48,7 +48,7 @@ export default function EsportsPage() {
               'flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg font-mono text-[11px] sm:text-xs whitespace-nowrap transition-all duration-150 border',
               filter === f.key
                 ? 'border-cyber-purple2 text-cyber-purple2 bg-cyber-purple2/5'
-                : 'border-border-hover bg-bg-tertiary text-muted hover:text-[#e8e8f0]'
+                : 'border-border-hover bg-bg-tertiary text-muted hover:text-[#FFFFFF]'
             )}
           >
             {f.emoji && <span>{f.emoji}</span>}

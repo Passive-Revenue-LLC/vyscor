@@ -59,7 +59,7 @@ export default function PreferencesPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <h1 className="font-orbitron text-lg font-bold text-[#e8e8f0] mb-2">
+      <h1 className="font-orbitron text-lg font-bold text-[#FFFFFF] mb-2">
         MIS CATEGORIAS FAVORITAS
       </h1>
       <p className="font-mono text-xs text-muted mb-6">
@@ -77,7 +77,7 @@ export default function PreferencesPage() {
                 'flex items-center gap-2 px-3 sm:px-4 py-3 rounded-lg border font-mono text-xs sm:text-sm transition-all duration-150',
                 isSelected
                   ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan'
-                  : 'border-border bg-bg-tertiary text-muted hover:text-[#e8e8f0] hover:border-border-hover'
+                  : 'border-border bg-bg-tertiary text-muted hover:text-[#FFFFFF] hover:border-border-hover'
               )}
             >
               <span className="text-lg">{config.emoji}</span>
@@ -100,7 +100,7 @@ export default function PreferencesPage() {
         </button>
         <button
           onClick={() => router.push('/')}
-          className="px-6 py-2.5 bg-bg-tertiary border border-border text-muted font-mono text-sm rounded-lg hover:text-[#e8e8f0] transition-all duration-150"
+          className="px-6 py-2.5 bg-bg-tertiary border border-border text-muted font-mono text-sm rounded-lg hover:text-[#FFFFFF] transition-all duration-150"
         >
           CANCELAR
         </button>

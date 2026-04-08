@@ -25,7 +25,7 @@ export default function LiveScoreboard({ events }: LiveScoreboardProps) {
               <div className="flex items-center gap-2 min-w-0">
                 <span className="text-sm">{config.emoji}</span>
                 <div className="min-w-0">
-                  <p className="text-xs text-[#e8e8f0] truncate">
+                  <p className="text-xs text-[#FFFFFF] truncate">
                     {event.homeTeam} vs {event.awayTeam}
                   </p>
                   <p className="font-mono text-[10px] text-muted truncate">

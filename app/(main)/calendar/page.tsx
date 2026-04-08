@@ -66,11 +66,11 @@ export default function CalendarPage() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-orbitron text-lg font-bold text-[#e8e8f0]">CALENDARIO</h1>
+        <h1 className="font-orbitron text-lg font-bold text-[#FFFFFF]">CALENDARIO</h1>
         <div className="flex items-center gap-3">
           <button
             onClick={prevMonth}
-            className="px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border text-muted hover:text-[#e8e8f0] font-mono text-sm transition-all duration-150"
+            className="px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border text-muted hover:text-[#FFFFFF] font-mono text-sm transition-all duration-150"
           >
             &#8592;
           </button>
@@ -79,7 +79,7 @@ export default function CalendarPage() {
           </span>
           <button
             onClick={nextMonth}
-            className="px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border text-muted hover:text-[#e8e8f0] font-mono text-sm transition-all duration-150"
+            className="px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border text-muted hover:text-[#FFFFFF] font-mono text-sm transition-all duration-150"
           >
             &#8594;
           </button>
@@ -187,7 +187,7 @@ export default function CalendarPage() {
                   >
                     <span className="text-lg">{config?.emoji}</span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-mono text-sm text-[#e8e8f0] truncate">
+                      <p className="font-mono text-sm text-[#FFFFFF] truncate">
                         {event.homeTeam} vs {event.awayTeam}
                       </p>
                       <p className="font-mono text-xs text-muted">{config?.label} &middot; {event.league}</p>
@@ -202,7 +202,7 @@ export default function CalendarPage() {
                       </p>
                     </div>
                     {(event.homeScore != null && event.awayScore != null) && (
-                      <div className="font-orbitron text-sm font-bold text-[#e8e8f0] ml-2">
+                      <div className="font-orbitron text-sm font-bold text-[#FFFFFF] ml-2">
                         {event.homeScore} - {event.awayScore}
                       </div>
                     )}

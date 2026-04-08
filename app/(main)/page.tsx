@@ -69,7 +69,7 @@ export default function HomePage() {
         {/* Events section */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-widest">
+            <h2 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-widest">
               {viewTab === 'LIVE' ? 'EN VIVO' : viewTab === 'RESULTS' ? 'RESULTADOS' : 'EVENTOS'}
             </h2>
             <span className="font-mono text-xs text-muted">

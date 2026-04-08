@@ -41,7 +41,7 @@ export default function FeaturedMatch({ event }: FeaturedMatchProps) {
           {/* Teams & Score */}
           <div className="flex items-center justify-between gap-2">
             <div className="flex-1 text-center min-w-0">
-              <p className="font-body font-semibold text-sm sm:text-lg text-[#e8e8f0] truncate">
+              <p className="font-body font-semibold text-sm sm:text-lg text-[#FFFFFF] truncate">
                 {event.homeTeam}
               </p>
             </div>
@@ -50,7 +50,7 @@ export default function FeaturedMatch({ event }: FeaturedMatchProps) {
               {isLive || event.status === EventStatus.FINISHED ? (
                 <p className={cn(
                   'font-mono text-2xl sm:text-3xl font-bold',
-                  isLive ? 'text-cyber-red' : 'text-[#e8e8f0]'
+                  isLive ? 'text-cyber-red' : 'text-[#FFFFFF]'
                 )}>
                   {event.homeScore} - {event.awayScore}
                 </p>
@@ -62,7 +62,7 @@ export default function FeaturedMatch({ event }: FeaturedMatchProps) {
             </div>
 
             <div className="flex-1 text-center min-w-0">
-              <p className="font-body font-semibold text-sm sm:text-lg text-[#e8e8f0] truncate">
+              <p className="font-body font-semibold text-sm sm:text-lg text-[#FFFFFF] truncate">
                 {event.awayTeam}
               </p>
             </div>

@@ -109,7 +109,7 @@ export default function EventDetailPage() {
           {/* Teams & score */}
           <div className="flex items-center justify-between gap-2">
             <div className="flex-1 text-center min-w-0">
-              <p className="font-body text-base sm:text-xl md:text-2xl font-bold text-[#e8e8f0] break-words line-clamp-2">
+              <p className="font-body text-base sm:text-xl md:text-2xl font-bold text-[#FFFFFF] break-words line-clamp-2">
                 {event.homeTeam}
               </p>
             </div>
@@ -117,7 +117,7 @@ export default function EventDetailPage() {
               {hasScore ? (
                 <p className={cn(
                   'font-mono text-2xl sm:text-4xl md:text-5xl font-bold',
-                  isLive ? 'text-cyber-red' : 'text-[#e8e8f0]'
+                  isLive ? 'text-cyber-red' : 'text-[#FFFFFF]'
                 )}>
                   {event.homeScore} - {event.awayScore}
                 </p>
@@ -129,7 +129,7 @@ export default function EventDetailPage() {
               )}
             </div>
             <div className="flex-1 text-center min-w-0">
-              <p className="font-body text-base sm:text-xl md:text-2xl font-bold text-[#e8e8f0] break-words line-clamp-2">
+              <p className="font-body text-base sm:text-xl md:text-2xl font-bold text-[#FFFFFF] break-words line-clamp-2">
                 {event.awayTeam}
               </p>
             </div>
@@ -166,7 +166,7 @@ export default function EventDetailPage() {
               'px-3 sm:px-4 py-2.5 rounded-lg font-mono text-[11px] sm:text-xs tracking-wide transition-all duration-150 whitespace-nowrap',
               activeTab === tab
                 ? 'bg-cyber-cyan text-bg-primary font-bold'
-                : 'text-muted hover:text-[#e8e8f0] hover:bg-bg-tertiary'
+                : 'text-muted hover:text-[#FFFFFF] hover:bg-bg-tertiary'
             )}
           >
             {tab}
@@ -181,7 +181,7 @@ export default function EventDetailPage() {
             {/* Odds section (locked) */}
             <div className="bg-bg-card border border-border rounded-lg p-4">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+                <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
                   CUOTAS
                 </h3>
                 <Badge variant="purple">PROXIMAMENTE</Badge>
@@ -194,7 +194,7 @@ export default function EventDetailPage() {
 
             {/* Event info */}
             <div className="bg-bg-card border border-border rounded-lg p-4">
-              <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider mb-3">
+              <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider mb-3">
                 INFORMACION
               </h3>
               <div className="space-y-2">
@@ -252,7 +252,7 @@ export default function EventDetailPage() {
         {/* Related events */}
         {relatedEvents.length > 0 && (
           <div>
-            <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider mb-3">
+            <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider mb-3">
               EVENTOS RELACIONADOS
             </h3>
             <div className="space-y-3">
@@ -290,7 +290,7 @@ function AnalysisView({
         <div className="mb-4">
           <span className="text-3xl">🤖</span>
         </div>
-        <h3 className="font-orbitron text-sm font-bold text-[#e8e8f0] tracking-wider mb-2">
+        <h3 className="font-orbitron text-sm font-bold text-[#FFFFFF] tracking-wider mb-2">
           ANALISIS CON IA
         </h3>
         <p className="font-mono text-xs text-muted mb-4 max-w-md mx-auto">
@@ -326,7 +326,7 @@ function AnalysisView({
         <p className="font-mono text-sm text-cyber-red mb-3">{error}</p>
         <button
           onClick={onGenerate}
-          className="px-4 py-2 bg-bg-tertiary rounded-lg font-mono text-xs text-muted hover:text-[#e8e8f0] transition-colors"
+          className="px-4 py-2 bg-bg-tertiary rounded-lg font-mono text-xs text-muted hover:text-[#FFFFFF] transition-colors"
         >
           Reintentar
         </button>
@@ -354,11 +354,11 @@ function AnalysisView({
       <div className="bg-bg-card border border-border rounded-lg p-4">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-sm">📋</span>
-          <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+          <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
             RESUMEN
           </h3>
         </div>
-        <p className="font-mono text-xs text-[#e8e8f0] leading-relaxed">
+        <p className="font-mono text-xs text-[#FFFFFF] leading-relaxed">
           {analysis.resumen}
         </p>
       </div>
@@ -367,7 +367,7 @@ function AnalysisView({
       <div className={cn('border rounded-lg p-4', confianzaBg)}>
         <div className="flex items-center gap-2 mb-3">
           <span className="text-sm">🎯</span>
-          <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+          <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
             PREDICCION
           </h3>
           <span className={cn('ml-auto font-mono text-[9px] sm:text-[10px] font-bold uppercase shrink-0', confianzaColor)}>
@@ -388,7 +388,7 @@ function AnalysisView({
       <div className="bg-bg-card border border-border rounded-lg overflow-hidden">
         <div className="px-4 py-3 border-b border-border flex items-center gap-2">
           <span className="text-sm">📊</span>
-          <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+          <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
             METRICAS CLAVE
           </h3>
         </div>
@@ -396,7 +396,7 @@ function AnalysisView({
           {analysis.metricas_clave.map((metrica, i) => (
             <div key={i} className="px-4 py-3">
               <div className="flex items-center justify-between mb-1">
-                <span className="font-mono text-xs font-bold text-[#e8e8f0]">
+                <span className="font-mono text-xs font-bold text-[#FFFFFF]">
                   {metrica.titulo}
                 </span>
                 <span className="font-mono text-xs text-cyber-cyan font-bold">
@@ -415,11 +415,11 @@ function AnalysisView({
       <div className="bg-bg-card border border-border rounded-lg p-4">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-sm">🧠</span>
-          <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+          <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
             ANALISIS GLOBAL
           </h3>
         </div>
-        <p className="font-mono text-xs text-[#e8e8f0] leading-relaxed">
+        <p className="font-mono text-xs text-[#FFFFFF] leading-relaxed">
           {analysis.analisis_global}
         </p>
       </div>
@@ -428,7 +428,7 @@ function AnalysisView({
       <div className="text-center">
         <button
           onClick={onGenerate}
-          className="px-4 py-2 bg-bg-tertiary rounded-lg font-mono text-[10px] text-muted hover:text-[#e8e8f0] transition-colors"
+          className="px-4 py-2 bg-bg-tertiary rounded-lg font-mono text-[10px] text-muted hover:text-[#FFFFFF] transition-colors"
         >
           Regenerar analisis
         </button>
@@ -500,13 +500,13 @@ function StatisticsView({
           return (
             <div key={stat.type}>
               <div className="flex items-center justify-between mb-1 gap-1">
-                <span className="font-mono text-[11px] sm:text-xs text-[#e8e8f0] w-10 sm:w-16 text-left shrink-0">
+                <span className="font-mono text-[11px] sm:text-xs text-[#FFFFFF] w-10 sm:w-16 text-left shrink-0">
                   {formatStatDisplay(stat.home)}
                 </span>
                 <span className="font-mono text-[9px] sm:text-[10px] text-muted flex-1 text-center truncate">
                   {translateStatType(stat.type)}
                 </span>
-                <span className="font-mono text-[11px] sm:text-xs text-[#e8e8f0] w-10 sm:w-16 text-right shrink-0">
+                <span className="font-mono text-[11px] sm:text-xs text-[#FFFFFF] w-10 sm:w-16 text-right shrink-0">
                   {formatStatDisplay(stat.away)}
                 </span>
               </div>
@@ -536,7 +536,7 @@ function H2HView({ matches }: { matches: H2HMatch[] }) {
   return (
     <div className="bg-bg-card border border-border rounded-lg overflow-hidden">
       <div className="px-4 py-3 border-b border-border">
-        <h3 className="font-orbitron text-xs font-bold text-[#e8e8f0] tracking-wider">
+        <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
           ULTIMOS ENFRENTAMIENTOS
         </h3>
       </div>
@@ -558,16 +558,16 @@ function H2HView({ matches }: { matches: H2HMatch[] }) {
                 </span>
               </div>
               <div className="flex-1 flex items-center justify-center gap-2 min-w-0">
-                <span className="font-mono text-[11px] sm:text-xs text-[#e8e8f0] truncate text-right flex-1">
+                <span className="font-mono text-[11px] sm:text-xs text-[#FFFFFF] truncate text-right flex-1">
                   {match.homeTeam}
                 </span>
                 <span className={cn(
                   'font-mono text-xs sm:text-sm font-bold px-2 py-0.5 rounded shrink-0',
-                  match.homeScore !== null ? 'text-[#e8e8f0] bg-bg-tertiary' : 'text-muted'
+                  match.homeScore !== null ? 'text-[#FFFFFF] bg-bg-tertiary' : 'text-muted'
                 )}>
                   {match.homeScore ?? '-'} - {match.awayScore ?? '-'}
                 </span>
-                <span className="font-mono text-[11px] sm:text-xs text-[#e8e8f0] truncate flex-1">
+                <span className="font-mono text-[11px] sm:text-xs text-[#FFFFFF] truncate flex-1">
                   {match.awayTeam}
                 </span>
               </div>
@@ -587,7 +587,7 @@ function LineupsView({ lineups }: { lineups: TeamLineup[] }) {
       {lineups.map((lineup) => (
         <div key={lineup.team} className="bg-bg-card border border-border rounded-lg overflow-hidden">
           <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-            <span className="font-mono text-xs font-bold text-[#e8e8f0]">{lineup.team}</span>
+            <span className="font-mono text-xs font-bold text-[#FFFFFF]">{lineup.team}</span>
             {lineup.formation && (
               <span className="font-mono text-[10px] text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded">
                 {lineup.formation}
@@ -602,7 +602,7 @@ function LineupsView({ lineups }: { lineups: TeamLineup[] }) {
               {lineup.startXI.map((player) => (
                 <div key={player.number} className="flex items-center gap-2 py-0.5">
                   <span className="font-mono text-[10px] text-cyber-cyan w-5 text-right">{player.number}</span>
-                  <span className="font-mono text-xs text-[#e8e8f0]">{player.name}</span>
+                  <span className="font-mono text-xs text-[#FFFFFF]">{player.name}</span>
                   <span className="font-mono text-[9px] text-muted ml-auto">{translatePosition(player.pos)}</span>
                 </div>
               ))}
@@ -634,7 +634,7 @@ function InfoRow({ label, value, highlight }: { label: string; value: string; hi
   return (
     <div className="flex items-center justify-between py-1.5 border-b border-border last:border-0">
       <span className="font-mono text-xs text-muted">{label}</span>
-      <span className={cn('font-mono text-xs', highlight ? 'text-cyber-green' : 'text-[#e8e8f0]')}>
+      <span className={cn('font-mono text-xs', highlight ? 'text-cyber-green' : 'text-[#FFFFFF]')}>
         {value}
       </span>
     </div>

@@ -24,7 +24,7 @@ export default function BettingTeaser() {
     <div className="bg-bg-card border border-dashed border-cyber-purple rounded-lg p-4">
       <div className="text-center mb-4">
         <span className="text-2xl">💎</span>
-        <h3 className="font-orbitron text-sm font-bold text-[#e8e8f0] mt-2 tracking-wide">
+        <h3 className="font-orbitron text-sm font-bold text-[#FFFFFF] mt-2 tracking-wide">
           REFERIDOS &amp; BONOS
         </h3>
         <p className="font-mono text-xs text-muted mt-1">
@@ -40,7 +40,7 @@ export default function BettingTeaser() {
             className="relative bg-bg-tertiary rounded-lg p-3 overflow-hidden"
           >
             <div className="filter blur-[4px] select-none">
-              <p className="font-body text-sm font-medium text-[#e8e8f0]">
+              <p className="font-body text-sm font-medium text-[#FFFFFF]">
                 {partner.name}
               </p>
               <p className="font-mono text-[10px] text-cyber-green">
@@ -71,7 +71,7 @@ export default function BettingTeaser() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-xs text-[#e8e8f0] placeholder:text-muted focus:outline-none focus:border-cyber-purple transition-colors duration-150"
+            className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-xs text-[#FFFFFF] placeholder:text-muted focus:outline-none focus:border-cyber-purple transition-colors duration-150"
           />
           <button
             type="submit"

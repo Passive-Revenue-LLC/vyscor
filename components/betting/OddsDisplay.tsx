@@ -21,7 +21,7 @@ export default function OddsDisplay({ homeOdds = '1.85', drawOdds = '3.40', away
           className="flex-1 flex flex-col items-center gap-1 px-2 sm:px-3 py-2 bg-bg-tertiary border border-border rounded-lg opacity-60 cursor-not-allowed select-none"
         >
           <span className="font-mono text-[10px] text-muted">{odd.label}</span>
-          <span className="font-mono text-xs text-[#e8e8f0]">🔒 {odd.value}</span>
+          <span className="font-mono text-xs text-[#FFFFFF]">🔒 {odd.value}</span>
         </div>
       ))}
     </div>

@@ -48,10 +48,10 @@ export default function EventFilters({ activeFilter, onFilterChange }: EventFilt
             className={cn(
               'flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg font-mono text-[11px] sm:text-xs whitespace-nowrap transition-all duration-150 border',
               isActive
-                ? 'border-cyber-cyan text-cyber-cyan bg-cyber-cyan/5'
+                ? 'border-[#6B00F0] text-white bg-[#6B00F0]/12'
                 : isFav
-                  ? 'border-cyber-purple2/50 bg-cyber-purple/5 text-cyber-purple2 hover:text-[#e8e8f0] hover:border-cyber-purple2'
-                  : 'border-border-hover bg-bg-tertiary text-muted hover:text-[#e8e8f0] hover:border-border-hover'
+                  ? 'border-[#6B00F0]/40 bg-[#6B00F0]/5 text-[#7C4CFF] hover:text-white hover:border-[#7C4CFF]'
+                  : 'border-[#252525] bg-[#1B1B1B] text-[#6B6B6B] hover:text-white hover:border-[#3A3A3A]'
             )}
           >
             {filter.emoji && <span>{filter.emoji}</span>}

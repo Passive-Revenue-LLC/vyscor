@@ -35,7 +35,7 @@ export default function EventCard({ event, showOdds = false }: EventCardProps) {
             <p className="font-mono text-[10px] text-muted uppercase tracking-wider truncate">
               {event.league}
             </p>
-            <p className="text-sm font-medium text-[#e8e8f0] mt-0.5 truncate">
+            <p className="text-sm font-medium text-[#FFFFFF] mt-0.5 truncate">
               {event.homeTeam} vs {event.awayTeam}
             </p>
             <p className="font-mono text-xs text-muted mt-1">

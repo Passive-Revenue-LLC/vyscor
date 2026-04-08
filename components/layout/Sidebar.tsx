@@ -45,7 +45,7 @@ export default function Sidebar({ events }: SidebarProps) {
                   <span className="text-muted font-mono text-xs">
                     {config.emoji} {config.label}
                   </span>
-                  <span className="font-mono text-xs text-[#e8e8f0]">{count}</span>
+                  <span className="font-mono text-xs text-[#FFFFFF]">{count}</span>
                 </div>
               );
             })}
