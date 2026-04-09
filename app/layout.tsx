@@ -35,7 +35,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="font-syncopate antialiased">
+      <body className="font-inter antialiased">
         {children}
       </body>
     </html>

@@ -3,23 +3,29 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Vyscor brand — primary palette */
-  --vyscor-purple:       #6B00F0;
-  --vyscor-purple-light: #7C4CFF;
-  --vyscor-purple-dark:  #5A00CC;
-  --vyscor-black:        #1B1B1B;
-  --vyscor-white:        #FFFFFF;
+  /* Vyscor brand — primary blue palette */
+  --vyscor-primary:       #354FE3;
+  --vyscor-primary-light: #3E60EA;
+  --vyscor-primary-dark:  #2A3FB8;
+  --vyscor-black:         #1B1B1B;
+  --vyscor-white:         #FFFFFF;
+
+  /* Legacy aliases kept for back-compat with any remaining references */
+  --vyscor-purple:        #354FE3;
+  --vyscor-purple-light:  #3E60EA;
+  --vyscor-purple-dark:   #2A3FB8;
 
   /* Functional derivatives */
-  --vyscor-purple-dim:   rgba(107, 0, 240, 0.12);
-  --vyscor-purple-glow:  rgba(107, 0, 240, 0.25);
-  --vyscor-gray-900:     #111111;
-  --vyscor-gray-800:     #1B1B1B;
-  --vyscor-gray-700:     #252525;
-  --vyscor-gray-500:     #6B6B6B;
-  --vyscor-gray-300:     #AAAAAA;
+  --vyscor-primary-dim:   rgba(53, 79, 227, 0.12);
+  --vyscor-primary-glow:  rgba(53, 79, 227, 0.25);
+  --vyscor-gray-900:      #111111;
+  --vyscor-gray-800:      #1B1B1B;
+  --vyscor-gray-700:      #252525;
+  --vyscor-gray-500:      #6B6B6B;
+  --vyscor-gray-300:      #AAAAAA;
 
   /* Aliases used across the app */
   --text-primary:   #FFFFFF;
@@ -38,11 +44,11 @@ html {
 }
 
 body {
-  font-family: 'Syncopate', sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--vyscor-gray-900);
   color: var(--text-primary);
   min-height: 100vh;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -62,7 +68,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--vyscor-purple);
+  background: var(--vyscor-primary);
 }
 
 @keyframes pulse-live {
@@ -102,8 +108,8 @@ body {
 }
 
 ::selection {
-  background: var(--vyscor-purple-dim);
-  color: var(--vyscor-purple-light);
+  background: var(--vyscor-primary-dim);
+  color: var(--vyscor-primary-light);
 }
 
 .scrollbar-hide::-webkit-scrollbar { display: none; }
