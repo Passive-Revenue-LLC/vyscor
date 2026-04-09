@@ -16,12 +16,12 @@ export default function EventFilters({ activeFilter, onFilterChange }: EventFilt
   const filters = useMemo(() => {
     const allSports = Object.entries(SPORT_CONFIG).map(([sport, config]) => ({
       key: sport as FilterTab,
-      label: config.label.toUpperCase(),
+      label: config.label,
       emoji: config.emoji,
     }));
 
     const favs = profile?.favoriteCategories || [];
-    const todos = { key: 'TODOS' as FilterTab, label: 'TODOS', emoji: '' };
+    const todos = { key: 'TODOS' as FilterTab, label: 'Todos', emoji: '' };
 
     if (favs.length === 0) {
       return [todos, ...allSports];
@@ -46,11 +46,11 @@ export default function EventFilters({ activeFilter, onFilterChange }: EventFilt
             key={filter.key}
             onClick={() => onFilterChange(filter.key)}
             className={cn(
-              'flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg font-mono text-[11px] sm:text-xs whitespace-nowrap transition-all duration-150 border',
+              'flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg font-inter text-[12px] sm:text-[13px] font-medium whitespace-nowrap transition-all duration-150 border',
               isActive
-                ? 'border-[#6B00F0] text-white bg-[#6B00F0]/12'
+                ? 'border-[#354FE3] text-white bg-[#354FE3]/12'
                 : isFav
-                  ? 'border-[#6B00F0]/40 bg-[#6B00F0]/5 text-[#7C4CFF] hover:text-white hover:border-[#7C4CFF]'
+                  ? 'border-[#354FE3]/40 bg-[#354FE3]/5 text-[#3E60EA] hover:text-white hover:border-[#3E60EA]'
                   : 'border-[#252525] bg-[#1B1B1B] text-[#6B6B6B] hover:text-white hover:border-[#3A3A3A]'
             )}
           >

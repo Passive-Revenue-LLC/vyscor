@@ -66,20 +66,20 @@ export default function CalendarPage() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-orbitron text-lg font-bold text-[#FFFFFF]">CALENDARIO</h1>
+        <h1 className="font-syncopate text-lg font-bold text-white uppercase tracking-[0.1em]">CALENDARIO</h1>
         <div className="flex items-center gap-3">
           <button
             onClick={prevMonth}
-            className="px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border text-muted hover:text-[#FFFFFF] font-mono text-sm transition-all duration-150"
+            className="px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border text-muted hover:text-white font-inter text-sm transition-all duration-150"
           >
             &#8592;
           </button>
-          <span className="font-orbitron text-sm text-cyber-cyan min-w-[160px] text-center">
+          <span className="font-syncopate text-sm text-white uppercase tracking-[0.1em] min-w-[160px] text-center">
             {MONTHS[month]} {year}
           </span>
           <button
             onClick={nextMonth}
-            className="px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border text-muted hover:text-[#FFFFFF] font-mono text-sm transition-all duration-150"
+            className="px-3 py-1.5 rounded-lg bg-bg-tertiary border border-border text-muted hover:text-white font-inter text-sm transition-all duration-150"
           >
             &#8594;
           </button>
@@ -91,7 +91,7 @@ export default function CalendarPage() {
         {/* Day headers */}
         <div className="grid grid-cols-7 border-b border-border min-w-[320px]">
           {DAYS.map((day) => (
-            <div key={day} className="px-1 sm:px-2 py-2 sm:py-3 text-center font-mono text-[10px] sm:text-xs text-muted">
+            <div key={day} className="px-1 sm:px-2 py-2 sm:py-3 text-center font-syncopate text-[10px] sm:text-[11px] uppercase tracking-[0.1em] text-muted">
               {day}
             </div>
           ))}
@@ -118,21 +118,21 @@ export default function CalendarPage() {
                 onClick={() => setSelectedDay(isSelected ? null : key)}
                 className={cn(
                   'min-h-[60px] sm:min-h-[100px] border-b border-r border-border/50 p-1 sm:p-2 text-left transition-all duration-150 hover:bg-bg-tertiary',
-                  isSelected && 'bg-cyber-cyan/5 border-cyber-cyan/30',
-                  isToday && !isSelected && 'bg-cyber-purple/5'
+                  isSelected && 'bg-[#354FE3]/8 border-[#354FE3]/40',
+                  isToday && !isSelected && 'bg-[#354FE3]/5'
                 )}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span
                     className={cn(
-                      'font-mono text-xs',
-                      isToday ? 'text-cyber-cyan font-bold' : 'text-muted'
+                      'font-inter text-xs',
+                      isToday ? 'text-white font-bold' : 'text-muted'
                     )}
                   >
                     {dayNum}
                   </span>
                   {dayEvents.length > 0 && (
-                    <span className="font-mono text-[10px] text-cyber-purple2">
+                    <span className="font-inter text-[11px] font-semibold text-[#3E60EA]">
                       {dayEvents.length}
                     </span>
                   )}
@@ -152,7 +152,7 @@ export default function CalendarPage() {
                     );
                   })}
                   {dayEvents.length > 4 && (
-                    <span className="font-mono text-[9px] text-muted">+{dayEvents.length - 4}</span>
+                    <span className="font-inter text-[10px] text-muted">+{dayEvents.length - 4}</span>
                   )}
                 </div>
               </button>
@@ -164,12 +164,12 @@ export default function CalendarPage() {
       {/* Selected day events */}
       {selectedDay && (
         <div className="mt-6">
-          <h2 className="font-orbitron text-xs font-bold text-cyber-cyan tracking-widest mb-4">
+          <h2 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em] mb-4">
             EVENTOS DEL {selectedDay.split('-').reverse().join('/')}
           </h2>
           {selectedEvents.length === 0 ? (
             <div className="bg-bg-card border border-border rounded-xl p-6 text-center">
-              <p className="font-mono text-sm text-muted">No hay eventos este dia</p>
+              <p className="font-inter text-sm text-muted">No hay eventos este dia</p>
             </div>
           ) : (
             <div className="space-y-2">
@@ -187,22 +187,22 @@ export default function CalendarPage() {
                   >
                     <span className="text-lg">{config?.emoji}</span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-mono text-sm text-[#FFFFFF] truncate">
+                      <p className="font-inter text-sm font-medium text-white truncate">
                         {event.homeTeam} vs {event.awayTeam}
                       </p>
-                      <p className="font-mono text-xs text-muted">{config?.label} &middot; {event.league}</p>
+                      <p className="font-inter text-xs text-muted">{config?.label} &middot; {event.league}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-mono text-xs text-cyber-cyan">{time}</p>
+                      <p className="font-inter text-xs font-semibold text-white">{time}</p>
                       <p className={cn(
-                        'font-mono text-[10px]',
-                        event.status === 'LIVE' ? 'text-cyber-red' : 'text-muted'
+                        'font-syncopate text-[10px] uppercase tracking-[0.1em]',
+                        event.status === 'LIVE' ? 'text-[#3E60EA]' : 'text-muted'
                       )}>
                         {event.status === 'LIVE' ? 'EN VIVO' : event.status === 'FINISHED' ? 'FINALIZADO' : 'PROXIMO'}
                       </p>
                     </div>
                     {(event.homeScore != null && event.awayScore != null) && (
-                      <div className="font-orbitron text-sm font-bold text-[#FFFFFF] ml-2">
+                      <div className="font-inter text-base font-bold text-white ml-2">
                         {event.homeScore} - {event.awayScore}
                       </div>
                     )}

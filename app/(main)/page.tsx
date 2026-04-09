@@ -53,7 +53,7 @@ export default function HomePage() {
       {/* Hero: Featured matches */}
       {viewTab !== 'RESULTS' && featured.length > 0 && (
         <section className="mb-8">
-          <h2 className="font-orbitron text-xs font-bold text-cyber-cyan tracking-widest mb-4">
+          <h2 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em] mb-4">
             DESTACADOS
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -69,10 +69,10 @@ export default function HomePage() {
         {/* Events section */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-widest">
+            <h2 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em]">
               {viewTab === 'LIVE' ? 'EN VIVO' : viewTab === 'RESULTS' ? 'RESULTADOS' : 'EVENTOS'}
             </h2>
-            <span className="font-mono text-xs text-muted">
+            <span className="font-inter text-xs text-muted">
               {loading ? '...' : `${filteredEvents.length} evento${filteredEvents.length !== 1 ? 's' : ''}`}
             </span>
           </div>

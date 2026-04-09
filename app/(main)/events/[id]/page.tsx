@@ -58,7 +58,7 @@ export default function EventDetailPage() {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 text-center">
-        <p className="font-mono text-muted">Cargando evento...</p>
+        <p className="font-inter text-muted">Cargando evento...</p>
       </div>
     );
   }
@@ -66,8 +66,8 @@ export default function EventDetailPage() {
   if (!event) {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 text-center">
-        <p className="font-mono text-muted">Evento no encontrado</p>
-        <Link href="/" className="font-mono text-xs text-cyber-cyan hover:underline mt-4 inline-block">
+        <p className="font-inter text-muted">Evento no encontrado</p>
+        <Link href="/" className="font-inter text-xs text-[#3E60EA] hover:underline mt-4 inline-block">
           Volver al inicio
         </Link>
       </div>
@@ -84,24 +84,24 @@ export default function EventDetailPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
       {/* Back link */}
-      <Link href="/" className="inline-flex items-center gap-1 font-mono text-xs text-muted hover:text-cyber-cyan transition-colors duration-150 mb-6">
+      <Link href="/" className="inline-flex items-center gap-1 font-inter text-xs text-muted hover:text-white transition-colors duration-150 mb-6">
         &larr; Volver
       </Link>
 
       {/* Event header */}
       <div className="bg-bg-card border border-border rounded-xl overflow-hidden mb-6">
-        <div className="h-[2px] bg-gradient-to-r from-cyber-cyan to-cyber-purple" />
+        <div className="h-[2px] bg-[#354FE3]" />
         <div className="p-6">
           {/* League & status */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <span className="text-xl">{sportConfig.emoji}</span>
-              <span className="font-mono text-xs text-muted uppercase tracking-widest">
+              <span className="font-inter text-xs text-muted">
                 {event.league}
               </span>
             </div>
-            <Badge variant={isLive ? 'red' : event.status === EventStatus.UPCOMING ? 'cyan' : 'muted'}>
-              {isLive && <span className="w-1.5 h-1.5 rounded-full bg-cyber-red animate-pulse-live mr-1" />}
+            <Badge variant={isLive ? 'live' : event.status === EventStatus.UPCOMING ? 'upcoming' : 'finished'}>
+              {isLive && <span className="w-1.5 h-1.5 rounded-full bg-[#354FE3] animate-pulse-live mr-1" />}
               {getStatusLabel(event.status)}
             </Badge>
           </div>
@@ -109,27 +109,24 @@ export default function EventDetailPage() {
           {/* Teams & score */}
           <div className="flex items-center justify-between gap-2">
             <div className="flex-1 text-center min-w-0">
-              <p className="font-body text-base sm:text-xl md:text-2xl font-bold text-[#FFFFFF] break-words line-clamp-2">
+              <p className="font-inter text-base sm:text-xl md:text-2xl font-bold text-white break-words line-clamp-2">
                 {event.homeTeam}
               </p>
             </div>
             <div className="px-2 sm:px-6 text-center shrink-0">
               {hasScore ? (
-                <p className={cn(
-                  'font-mono text-2xl sm:text-4xl md:text-5xl font-bold',
-                  isLive ? 'text-cyber-red' : 'text-[#FFFFFF]'
-                )}>
+                <p className="font-inter text-2xl sm:text-4xl md:text-5xl font-bold text-white">
                   {event.homeScore} - {event.awayScore}
                 </p>
               ) : (
                 <div className="text-center">
-                  <p className="font-mono text-xs sm:text-sm text-cyber-cyan">{getRelativeTime(event.startTime)}</p>
-                  <p className="font-mono text-[10px] text-muted mt-1">{formatDateTime(event.startTime)}</p>
+                  <p className="font-inter text-xs sm:text-sm text-white font-semibold">{getRelativeTime(event.startTime)}</p>
+                  <p className="font-inter text-[11px] text-muted mt-1">{formatDateTime(event.startTime)}</p>
                 </div>
               )}
             </div>
             <div className="flex-1 text-center min-w-0">
-              <p className="font-body text-base sm:text-xl md:text-2xl font-bold text-[#FFFFFF] break-words line-clamp-2">
+              <p className="font-inter text-base sm:text-xl md:text-2xl font-bold text-white break-words line-clamp-2">
                 {event.awayTeam}
               </p>
             </div>
@@ -138,17 +135,17 @@ export default function EventDetailPage() {
           {/* Meta */}
           <div className="flex items-center justify-center gap-2 sm:gap-3 mt-4 flex-wrap">
             {event.venue && (
-              <span className="px-2.5 py-1 bg-bg-tertiary rounded text-[10px] font-mono text-muted">
+              <span className="px-2.5 py-1 bg-bg-tertiary rounded text-[11px] font-inter text-muted">
                 {event.venue}
               </span>
             )}
             {typeof event.metadata?.format === 'string' && (
-              <span className="px-2.5 py-1 bg-bg-tertiary rounded text-[10px] font-mono text-muted">
+              <span className="px-2.5 py-1 bg-bg-tertiary rounded text-[11px] font-inter text-muted">
                 {event.metadata.format}
               </span>
             )}
             {typeof event.metadata?.minute === 'number' && (
-              <span className="px-2.5 py-1 bg-cyber-red/10 rounded text-[10px] font-mono text-cyber-red">
+              <span className="px-2.5 py-1 bg-[#354FE3]/12 border border-[#354FE3]/30 rounded text-[11px] font-inter text-[#3E60EA]">
                 Minuto {event.metadata.minute}
               </span>
             )}
@@ -163,10 +160,10 @@ export default function EventDetailPage() {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={cn(
-              'px-3 sm:px-4 py-2.5 rounded-lg font-mono text-[11px] sm:text-xs tracking-wide transition-all duration-150 whitespace-nowrap',
+              'px-3 sm:px-4 py-2.5 rounded-lg font-syncopate text-[11px] sm:text-xs uppercase tracking-[0.1em] transition-all duration-150 whitespace-nowrap',
               activeTab === tab
-                ? 'bg-cyber-cyan text-bg-primary font-bold'
-                : 'text-muted hover:text-[#FFFFFF] hover:bg-bg-tertiary'
+                ? 'bg-[#354FE3] text-white font-bold'
+                : 'text-muted hover:text-white hover:bg-bg-tertiary'
             )}
           >
             {tab}
@@ -181,20 +178,20 @@ export default function EventDetailPage() {
             {/* Odds section (locked) */}
             <div className="bg-bg-card border border-border rounded-lg p-4">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
+                <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em]">
                   CUOTAS
                 </h3>
                 <Badge variant="purple">PROXIMAMENTE</Badge>
               </div>
               <OddsDisplay />
-              <p className="font-mono text-[10px] text-muted text-center mt-3">
+              <p className="font-inter text-[11px] text-muted text-center mt-3">
                 Las cuotas estaran disponibles cuando lancemos el modulo de apuestas
               </p>
             </div>
 
             {/* Event info */}
             <div className="bg-bg-card border border-border rounded-lg p-4">
-              <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider mb-3">
+              <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em] mb-3">
                 INFORMACION
               </h3>
               <div className="space-y-2">
@@ -252,7 +249,7 @@ export default function EventDetailPage() {
         {/* Related events */}
         {relatedEvents.length > 0 && (
           <div>
-            <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider mb-3">
+            <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em] mb-3">
               EVENTOS RELACIONADOS
             </h3>
             <div className="space-y-3">
@@ -290,15 +287,15 @@ function AnalysisView({
         <div className="mb-4">
           <span className="text-3xl">🤖</span>
         </div>
-        <h3 className="font-orbitron text-sm font-bold text-[#FFFFFF] tracking-wider mb-2">
+        <h3 className="font-syncopate text-sm font-bold text-white uppercase tracking-[0.1em] mb-2">
           ANALISIS CON IA
         </h3>
-        <p className="font-mono text-xs text-muted mb-4 max-w-md mx-auto">
+        <p className="font-inter text-xs text-muted mb-4 max-w-md mx-auto">
           Genera un analisis inteligente del partido basado en estadisticas, historial y alineaciones disponibles.
         </p>
         <button
           onClick={onGenerate}
-          className="px-6 py-3 bg-gradient-to-r from-cyber-cyan to-cyber-purple rounded-lg font-mono text-xs font-bold text-bg-primary hover:opacity-90 transition-opacity active:scale-95"
+          className="px-6 py-3 bg-[#354FE3] hover:bg-[#3E60EA] rounded-lg font-syncopate text-xs font-bold uppercase tracking-[0.1em] text-white transition-colors active:scale-95"
         >
           Generar Analisis
         </button>
@@ -310,9 +307,9 @@ function AnalysisView({
     return (
       <div className="bg-bg-card border border-border rounded-lg p-6 sm:p-8 text-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-6 h-6 border-2 border-cyber-cyan border-t-transparent rounded-full animate-spin" />
-          <p className="font-mono text-sm text-muted">Analizando partido...</p>
-          <p className="font-mono text-[10px] text-muted/60">
+          <div className="w-6 h-6 border-2 border-[#354FE3] border-t-transparent rounded-full animate-spin" />
+          <p className="font-inter text-sm text-muted">Analizando partido...</p>
+          <p className="font-inter text-[11px] text-muted/60">
             Procesando {homeTeam} vs {awayTeam}
           </p>
         </div>
@@ -323,10 +320,10 @@ function AnalysisView({
   if (error) {
     return (
       <div className="bg-bg-card border border-border rounded-lg p-6 sm:p-8 text-center">
-        <p className="font-mono text-sm text-cyber-red mb-3">{error}</p>
+        <p className="font-inter text-sm text-[#EF4444] mb-3">{error}</p>
         <button
           onClick={onGenerate}
-          className="px-4 py-2 bg-bg-tertiary rounded-lg font-mono text-xs text-muted hover:text-[#FFFFFF] transition-colors"
+          className="px-4 py-2 bg-bg-tertiary rounded-lg font-inter text-xs text-muted hover:text-white transition-colors"
         >
           Reintentar
         </button>
@@ -337,14 +334,14 @@ function AnalysisView({
   if (!analysis) return null;
 
   const confianzaColor = {
-    alta: 'text-cyber-green',
-    media: 'text-cyber-amber',
+    alta: 'text-[#10B981]',
+    media: 'text-[#AAAAAA]',
     baja: 'text-muted',
   }[analysis.prediccion.confianza];
 
   const confianzaBg = {
-    alta: 'bg-cyber-green/10 border-cyber-green/20',
-    media: 'bg-cyber-amber/10 border-cyber-amber/20',
+    alta: 'bg-[#10B981]/10 border-[#10B981]/20',
+    media: 'bg-white/5 border-[#252525]',
     baja: 'bg-bg-tertiary border-border',
   }[analysis.prediccion.confianza];
 
@@ -354,11 +351,11 @@ function AnalysisView({
       <div className="bg-bg-card border border-border rounded-lg p-4">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-sm">📋</span>
-          <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
+          <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em]">
             RESUMEN
           </h3>
         </div>
-        <p className="font-mono text-xs text-[#FFFFFF] leading-relaxed">
+        <p className="font-inter text-sm text-white leading-relaxed">
           {analysis.resumen}
         </p>
       </div>
@@ -367,19 +364,19 @@ function AnalysisView({
       <div className={cn('border rounded-lg p-4', confianzaBg)}>
         <div className="flex items-center gap-2 mb-3">
           <span className="text-sm">🎯</span>
-          <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
+          <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em]">
             PREDICCION
           </h3>
-          <span className={cn('ml-auto font-mono text-[9px] sm:text-[10px] font-bold uppercase shrink-0', confianzaColor)}>
+          <span className={cn('ml-auto font-syncopate text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.1em] shrink-0', confianzaColor)}>
             {analysis.prediccion.confianza}
           </span>
         </div>
         <div className="flex items-center gap-3 mb-2">
-          <span className="font-mono text-sm font-bold text-cyber-cyan">
+          <span className="font-inter text-base font-bold text-white">
             {analysis.prediccion.favorito}
           </span>
         </div>
-        <p className="font-mono text-xs text-muted leading-relaxed">
+        <p className="font-inter text-sm text-muted leading-relaxed">
           {analysis.prediccion.razon}
         </p>
       </div>
@@ -388,7 +385,7 @@ function AnalysisView({
       <div className="bg-bg-card border border-border rounded-lg overflow-hidden">
         <div className="px-4 py-3 border-b border-border flex items-center gap-2">
           <span className="text-sm">📊</span>
-          <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
+          <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em]">
             METRICAS CLAVE
           </h3>
         </div>
@@ -396,14 +393,14 @@ function AnalysisView({
           {analysis.metricas_clave.map((metrica, i) => (
             <div key={i} className="px-4 py-3">
               <div className="flex items-center justify-between mb-1">
-                <span className="font-mono text-xs font-bold text-[#FFFFFF]">
+                <span className="font-inter text-sm font-semibold text-white">
                   {metrica.titulo}
                 </span>
-                <span className="font-mono text-xs text-cyber-cyan font-bold">
+                <span className="font-inter text-sm text-white font-bold">
                   {metrica.valor}
                 </span>
               </div>
-              <p className="font-mono text-[10px] text-muted leading-relaxed">
+              <p className="font-inter text-xs text-muted leading-relaxed">
                 {metrica.interpretacion}
               </p>
             </div>
@@ -415,11 +412,11 @@ function AnalysisView({
       <div className="bg-bg-card border border-border rounded-lg p-4">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-sm">🧠</span>
-          <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
+          <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em]">
             ANALISIS GLOBAL
           </h3>
         </div>
-        <p className="font-mono text-xs text-[#FFFFFF] leading-relaxed">
+        <p className="font-inter text-sm text-white leading-relaxed">
           {analysis.analisis_global}
         </p>
       </div>
@@ -428,11 +425,11 @@ function AnalysisView({
       <div className="text-center">
         <button
           onClick={onGenerate}
-          className="px-4 py-2 bg-bg-tertiary rounded-lg font-mono text-[10px] text-muted hover:text-[#FFFFFF] transition-colors"
+          className="px-4 py-2 bg-bg-tertiary rounded-lg font-inter text-[11px] text-muted hover:text-white transition-colors"
         >
           Regenerar analisis
         </button>
-        <p className="font-mono text-[9px] text-muted/50 mt-2">
+        <p className="font-inter text-[10px] text-muted/50 mt-2">
           Analisis generado por IA. Los datos pueden no ser exactos.
         </p>
       </div>
@@ -453,8 +450,8 @@ function DetailSection({
     return (
       <div className="bg-bg-card border border-border rounded-lg p-6 sm:p-8 text-center">
         <div className="flex items-center justify-center gap-2">
-          <div className="w-4 h-4 border-2 border-cyber-cyan border-t-transparent rounded-full animate-spin" />
-          <p className="font-mono text-sm text-muted">Cargando datos...</p>
+          <div className="w-4 h-4 border-2 border-[#354FE3] border-t-transparent rounded-full animate-spin" />
+          <p className="font-inter text-sm text-muted">Cargando datos...</p>
         </div>
       </div>
     );
@@ -463,7 +460,7 @@ function DetailSection({
   if (!data || !data.available) {
     return (
       <div className="bg-bg-card border border-border rounded-lg p-6 sm:p-8 text-center">
-        <p className="font-mono text-sm text-muted">
+        <p className="font-inter text-sm text-muted">
           {data?.message || 'No hay datos disponibles para este evento'}
         </p>
       </div>
@@ -485,9 +482,9 @@ function StatisticsView({
   return (
     <div className="bg-bg-card border border-border rounded-lg p-3 sm:p-4">
       <div className="flex items-center justify-between gap-2 mb-4">
-        <span className="font-mono text-[11px] sm:text-xs text-cyber-cyan font-bold truncate max-w-[35%] sm:max-w-[40%]">{homeTeam}</span>
-        <span className="font-orbitron text-[9px] sm:text-[10px] text-muted tracking-widest shrink-0">ESTADISTICAS</span>
-        <span className="font-mono text-[11px] sm:text-xs text-cyber-purple2 font-bold truncate max-w-[35%] sm:max-w-[40%] text-right">{awayTeam}</span>
+        <span className="font-inter text-[12px] sm:text-sm text-white font-semibold truncate max-w-[35%] sm:max-w-[40%]">{homeTeam}</span>
+        <span className="font-syncopate text-[9px] sm:text-[10px] text-muted uppercase tracking-[0.1em] shrink-0">ESTADISTICAS</span>
+        <span className="font-inter text-[12px] sm:text-sm text-white font-semibold truncate max-w-[35%] sm:max-w-[40%] text-right">{awayTeam}</span>
       </div>
       <div className="space-y-3">
         {statistics.map((stat) => {
@@ -500,26 +497,26 @@ function StatisticsView({
           return (
             <div key={stat.type}>
               <div className="flex items-center justify-between mb-1 gap-1">
-                <span className="font-mono text-[11px] sm:text-xs text-[#FFFFFF] w-10 sm:w-16 text-left shrink-0">
+                <span className="font-inter text-[12px] sm:text-sm font-semibold text-white w-10 sm:w-16 text-left shrink-0">
                   {formatStatDisplay(stat.home)}
                 </span>
-                <span className="font-mono text-[9px] sm:text-[10px] text-muted flex-1 text-center truncate">
+                <span className="font-inter text-[10px] sm:text-[11px] text-muted flex-1 text-center truncate">
                   {translateStatType(stat.type)}
                 </span>
-                <span className="font-mono text-[11px] sm:text-xs text-[#FFFFFF] w-10 sm:w-16 text-right shrink-0">
+                <span className="font-inter text-[12px] sm:text-sm font-semibold text-white w-10 sm:w-16 text-right shrink-0">
                   {formatStatDisplay(stat.away)}
                 </span>
               </div>
               <div className="flex gap-1 h-1.5">
                 <div className="flex-1 bg-bg-tertiary rounded-full overflow-hidden flex justify-end">
                   <div
-                    className="bg-cyber-cyan rounded-full transition-all duration-500"
+                    className="bg-[#354FE3] rounded-full transition-all duration-500"
                     style={{ width: `${homePct}%` }}
                   />
                 </div>
                 <div className="flex-1 bg-bg-tertiary rounded-full overflow-hidden">
                   <div
-                    className="bg-cyber-purple2 rounded-full transition-all duration-500"
+                    className="bg-[#3E60EA] rounded-full transition-all duration-500"
                     style={{ width: `${awayPct}%` }}
                   />
                 </div>
@@ -536,7 +533,7 @@ function H2HView({ matches }: { matches: H2HMatch[] }) {
   return (
     <div className="bg-bg-card border border-border rounded-lg overflow-hidden">
       <div className="px-4 py-3 border-b border-border">
-        <h3 className="font-orbitron text-xs font-bold text-[#FFFFFF] tracking-wider">
+        <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em]">
           ULTIMOS ENFRENTAMIENTOS
         </h3>
       </div>
@@ -552,22 +549,22 @@ function H2HView({ matches }: { matches: H2HMatch[] }) {
           return (
             <div key={i} className="px-3 sm:px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
               <div className="flex items-center justify-between sm:contents">
-                <span className="font-mono text-[10px] text-muted shrink-0">{dateStr}</span>
-                <span className="font-mono text-[9px] text-muted truncate sm:order-last sm:w-20 sm:text-right">
+                <span className="font-inter text-[11px] text-muted shrink-0">{dateStr}</span>
+                <span className="font-inter text-[10px] text-muted truncate sm:order-last sm:w-20 sm:text-right">
                   {match.league}
                 </span>
               </div>
               <div className="flex-1 flex items-center justify-center gap-2 min-w-0">
-                <span className="font-mono text-[11px] sm:text-xs text-[#FFFFFF] truncate text-right flex-1">
+                <span className="font-inter text-[12px] sm:text-sm text-white truncate text-right flex-1">
                   {match.homeTeam}
                 </span>
                 <span className={cn(
-                  'font-mono text-xs sm:text-sm font-bold px-2 py-0.5 rounded shrink-0',
-                  match.homeScore !== null ? 'text-[#FFFFFF] bg-bg-tertiary' : 'text-muted'
+                  'font-inter text-xs sm:text-sm font-bold px-2 py-0.5 rounded shrink-0',
+                  match.homeScore !== null ? 'text-white bg-bg-tertiary' : 'text-muted'
                 )}>
                   {match.homeScore ?? '-'} - {match.awayScore ?? '-'}
                 </span>
-                <span className="font-mono text-[11px] sm:text-xs text-[#FFFFFF] truncate flex-1">
+                <span className="font-inter text-[12px] sm:text-sm text-white truncate flex-1">
                   {match.awayTeam}
                 </span>
               </div>
@@ -587,9 +584,9 @@ function LineupsView({ lineups }: { lineups: TeamLineup[] }) {
       {lineups.map((lineup) => (
         <div key={lineup.team} className="bg-bg-card border border-border rounded-lg overflow-hidden">
           <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-            <span className="font-mono text-xs font-bold text-[#FFFFFF]">{lineup.team}</span>
+            <span className="font-inter text-sm font-semibold text-white">{lineup.team}</span>
             {lineup.formation && (
-              <span className="font-mono text-[10px] text-cyber-cyan bg-cyber-cyan/10 px-2 py-0.5 rounded">
+              <span className="font-inter text-[11px] text-[#3E60EA] bg-[#354FE3]/12 border border-[#354FE3]/30 px-2 py-0.5 rounded font-semibold">
                 {lineup.formation}
               </span>
             )}
@@ -597,13 +594,13 @@ function LineupsView({ lineups }: { lineups: TeamLineup[] }) {
 
           {/* Starting XI */}
           <div className="px-4 py-2">
-            <p className="font-mono text-[10px] text-muted tracking-widest mb-2">TITULARES</p>
+            <p className="font-syncopate text-[10px] text-muted uppercase tracking-[0.1em] mb-2">TITULARES</p>
             <div className="space-y-1">
               {lineup.startXI.map((player) => (
                 <div key={player.number} className="flex items-center gap-2 py-0.5">
-                  <span className="font-mono text-[10px] text-cyber-cyan w-5 text-right">{player.number}</span>
-                  <span className="font-mono text-xs text-[#FFFFFF]">{player.name}</span>
-                  <span className="font-mono text-[9px] text-muted ml-auto">{translatePosition(player.pos)}</span>
+                  <span className="font-inter text-[11px] font-bold text-[#3E60EA] w-5 text-right">{player.number}</span>
+                  <span className="font-inter text-xs text-white">{player.name}</span>
+                  <span className="font-inter text-[10px] text-muted ml-auto">{translatePosition(player.pos)}</span>
                 </div>
               ))}
             </div>
@@ -612,13 +609,13 @@ function LineupsView({ lineups }: { lineups: TeamLineup[] }) {
           {/* Substitutes */}
           {lineup.substitutes.length > 0 && (
             <div className="px-4 py-2 border-t border-border/50">
-              <p className="font-mono text-[10px] text-muted tracking-widest mb-2">SUPLENTES</p>
+              <p className="font-syncopate text-[10px] text-muted uppercase tracking-[0.1em] mb-2">SUPLENTES</p>
               <div className="space-y-1">
                 {lineup.substitutes.map((player) => (
                   <div key={player.number} className="flex items-center gap-2 py-0.5">
-                    <span className="font-mono text-[10px] text-muted w-5 text-right">{player.number}</span>
-                    <span className="font-mono text-xs text-muted">{player.name}</span>
-                    <span className="font-mono text-[9px] text-muted/50 ml-auto">{translatePosition(player.pos)}</span>
+                    <span className="font-inter text-[11px] text-muted w-5 text-right">{player.number}</span>
+                    <span className="font-inter text-xs text-muted">{player.name}</span>
+                    <span className="font-inter text-[10px] text-muted/50 ml-auto">{translatePosition(player.pos)}</span>
                   </div>
                 ))}
               </div>
@@ -633,8 +630,8 @@ function LineupsView({ lineups }: { lineups: TeamLineup[] }) {
 function InfoRow({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className="flex items-center justify-between py-1.5 border-b border-border last:border-0">
-      <span className="font-mono text-xs text-muted">{label}</span>
-      <span className={cn('font-mono text-xs', highlight ? 'text-cyber-green' : 'text-[#FFFFFF]')}>
+      <span className="font-inter text-xs text-muted">{label}</span>
+      <span className={cn('font-inter text-xs', highlight ? 'text-[#10B981]' : 'text-white')}>
         {value}
       </span>
     </div>

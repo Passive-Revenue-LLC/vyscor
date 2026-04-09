@@ -12,7 +12,7 @@ export default function EventGrid({ events, showOdds = false }: EventGridProps) 
   if (events.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="font-mono text-sm text-muted">No se encontraron eventos</p>
+        <p className="font-inter text-sm text-muted">No se encontraron eventos</p>
       </div>
     );
   }

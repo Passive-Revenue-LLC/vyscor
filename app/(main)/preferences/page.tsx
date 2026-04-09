@@ -59,10 +59,10 @@ export default function PreferencesPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <h1 className="font-orbitron text-lg font-bold text-[#FFFFFF] mb-2">
+      <h1 className="font-syncopate text-lg font-bold text-white uppercase tracking-[0.1em] mb-2">
         MIS CATEGORIAS FAVORITAS
       </h1>
-      <p className="font-mono text-xs text-muted mb-6">
+      <p className="font-inter text-sm text-muted mb-6">
         Selecciona los deportes que te interesan. Apareceran primero en tus filtros.
       </p>
 
@@ -74,16 +74,16 @@ export default function PreferencesPage() {
               key={sport}
               onClick={() => toggleCategory(sport)}
               className={cn(
-                'flex items-center gap-2 px-3 sm:px-4 py-3 rounded-lg border font-mono text-xs sm:text-sm transition-all duration-150',
+                'flex items-center gap-2 px-3 sm:px-4 py-3 rounded-lg border font-inter text-sm font-medium transition-all duration-150',
                 isSelected
-                  ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan'
-                  : 'border-border bg-bg-tertiary text-muted hover:text-[#FFFFFF] hover:border-border-hover'
+                  ? 'border-[#354FE3] bg-[#354FE3]/12 text-white'
+                  : 'border-border bg-bg-tertiary text-muted hover:text-white hover:border-border-hover'
               )}
             >
               <span className="text-lg">{config.emoji}</span>
               <span>{config.label}</span>
               {isSelected && (
-                <span className="ml-auto text-cyber-cyan">&#10003;</span>
+                <span className="ml-auto text-[#3E60EA]">&#10003;</span>
               )}
             </button>
           );
@@ -94,13 +94,13 @@ export default function PreferencesPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="px-6 py-2.5 bg-gradient-to-r from-cyber-purple to-cyber-purple2 text-white font-orbitron text-sm font-bold rounded-lg tracking-wide transition-all duration-150 hover:opacity-90 disabled:opacity-50"
+          className="px-6 py-2.5 bg-[#354FE3] hover:bg-[#3E60EA] text-white font-syncopate text-sm font-bold rounded-lg uppercase tracking-[0.1em] transition-colors duration-150 disabled:opacity-50"
         >
           {saving ? 'GUARDANDO...' : 'GUARDAR'}
         </button>
         <button
           onClick={() => router.push('/')}
-          className="px-6 py-2.5 bg-bg-tertiary border border-border text-muted font-mono text-sm rounded-lg hover:text-[#FFFFFF] transition-all duration-150"
+          className="px-6 py-2.5 bg-bg-tertiary border border-border text-muted font-syncopate text-sm font-bold uppercase tracking-[0.1em] rounded-lg hover:text-white transition-all duration-150"
         >
           CANCELAR
         </button>

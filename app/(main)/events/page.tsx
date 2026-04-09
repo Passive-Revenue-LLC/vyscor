@@ -23,7 +23,7 @@ export default function EventsPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
-      <h1 className="font-orbitron text-lg font-bold text-[#FFFFFF] tracking-wider mb-6">
+      <h1 className="font-syncopate text-lg font-bold text-white uppercase tracking-[0.1em] mb-6">
         TODOS LOS EVENTOS
       </h1>
       <EventFilters activeFilter={sportFilter} onFilterChange={setSportFilter} />

@@ -7,12 +7,12 @@ import { useEvents } from '@/hooks/useEvents';
 import EventGrid from '@/components/events/EventGrid';
 
 const esportFilters: { key: FilterTab; label: string; emoji: string }[] = [
-  { key: 'TODOS', label: 'TODOS', emoji: '' },
+  { key: 'TODOS', label: 'Todos', emoji: '' },
   { key: Sport.CS2, label: 'CS2', emoji: SPORT_CONFIG[Sport.CS2].emoji },
-  { key: Sport.LOL, label: 'LOL', emoji: SPORT_CONFIG[Sport.LOL].emoji },
-  { key: Sport.DOTA2, label: 'DOTA 2', emoji: SPORT_CONFIG[Sport.DOTA2].emoji },
-  { key: Sport.VALORANT, label: 'VALORANT', emoji: SPORT_CONFIG[Sport.VALORANT].emoji },
-  { key: Sport.ROCKETLEAGUE, label: 'ROCKET LEAGUE', emoji: SPORT_CONFIG[Sport.ROCKETLEAGUE].emoji },
+  { key: Sport.LOL, label: 'LoL', emoji: SPORT_CONFIG[Sport.LOL].emoji },
+  { key: Sport.DOTA2, label: 'Dota 2', emoji: SPORT_CONFIG[Sport.DOTA2].emoji },
+  { key: Sport.VALORANT, label: 'Valorant', emoji: SPORT_CONFIG[Sport.VALORANT].emoji },
+  { key: Sport.ROCKETLEAGUE, label: 'Rocket League', emoji: SPORT_CONFIG[Sport.ROCKETLEAGUE].emoji },
 ];
 
 export default function EsportsPage() {
@@ -30,10 +30,10 @@ export default function EsportsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
       <div className="flex items-center gap-3 mb-6">
-        <h1 className="font-orbitron text-lg font-bold text-cyber-purple2 tracking-wider">
+        <h1 className="font-syncopate text-lg font-bold text-white uppercase tracking-[0.1em]">
           E-SPORTS
         </h1>
-        <span className="font-mono text-xs text-muted">
+        <span className="font-inter text-xs text-muted">
           {loading ? '...' : `${events.length} evento${events.length !== 1 ? 's' : ''}`}
         </span>
       </div>
@@ -45,10 +45,10 @@ export default function EsportsPage() {
             key={f.key}
             onClick={() => setFilter(f.key)}
             className={cn(
-              'flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg font-mono text-[11px] sm:text-xs whitespace-nowrap transition-all duration-150 border',
+              'flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-2 rounded-lg font-inter text-[12px] sm:text-[13px] font-medium whitespace-nowrap transition-all duration-150 border',
               filter === f.key
-                ? 'border-cyber-purple2 text-cyber-purple2 bg-cyber-purple2/5'
-                : 'border-border-hover bg-bg-tertiary text-muted hover:text-[#FFFFFF]'
+                ? 'border-[#354FE3] text-white bg-[#354FE3]/12'
+                : 'border-border-hover bg-bg-tertiary text-muted hover:text-white'
             )}
           >
             {f.emoji && <span>{f.emoji}</span>}

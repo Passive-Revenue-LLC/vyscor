@@ -32,13 +32,13 @@ export default function EventCard({ event, showOdds = false }: EventCardProps) {
 
           {/* Info */}
           <div className="min-w-0">
-            <p className="font-mono text-[10px] text-muted uppercase tracking-wider truncate">
+            <p className="font-inter text-[11px] text-muted truncate">
               {event.league}
             </p>
-            <p className="text-sm font-medium text-[#FFFFFF] mt-0.5 truncate">
+            <p className="font-inter text-sm font-semibold text-white mt-0.5 truncate">
               {event.homeTeam} vs {event.awayTeam}
             </p>
-            <p className="font-mono text-xs text-muted mt-1">
+            <p className="font-inter text-xs text-muted mt-1">
               {isLive && meta(event.metadata, 'minute') !== undefined && `${meta(event.metadata, 'minute')}'`}
               {isLive && meta(event.metadata, 'quarter') !== undefined && `Q${meta(event.metadata, 'quarter')} ${meta(event.metadata, 'timeLeft') || ''}`}
               {isLive && meta(event.metadata, 'map') !== undefined && `${meta(event.metadata, 'map')} · R${meta(event.metadata, 'round')}`}
@@ -52,7 +52,7 @@ export default function EventCard({ event, showOdds = false }: EventCardProps) {
                 {['1.85', 'X', '2.10'].map((odd, i) => (
                   <span
                     key={i}
-                    className="px-2 py-0.5 bg-bg-tertiary border border-border rounded text-[10px] font-mono text-muted opacity-60 select-none"
+                    className="px-2 py-0.5 bg-bg-tertiary border border-border rounded text-[10px] font-inter text-muted opacity-60 select-none"
                   >
                     🔒 {odd}
                   </span>
@@ -66,8 +66,8 @@ export default function EventCard({ event, showOdds = false }: EventCardProps) {
             <StatusBadge status={event.status} />
             {(isLive || isFinished) && event.homeScore !== undefined && event.awayScore !== undefined && (
               <p className={cn(
-                'font-mono text-lg font-bold',
-                isLive ? 'text-cyber-red' : 'text-muted'
+                'font-inter text-lg font-bold',
+                isLive ? 'text-white' : 'text-muted'
               )}>
                 {event.homeScore} - {event.awayScore}
               </p>
@@ -85,14 +85,14 @@ function StatusBadge({ status }: { status: EventStatus }) {
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full font-orbitron text-[9px] font-bold tracking-wider',
-        isLive && 'bg-cyber-red/10 text-cyber-red',
-        status === EventStatus.UPCOMING && 'bg-cyber-cyan/10 text-cyber-cyan',
-        status === EventStatus.FINISHED && 'bg-bg-tertiary text-muted',
-        status === EventStatus.CANCELLED && 'bg-bg-tertiary text-muted'
+        'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full font-syncopate text-[9px] font-bold uppercase tracking-[0.1em]',
+        isLive && 'bg-[#354FE3]/12 text-[#3E60EA] border border-[#354FE3]/30',
+        status === EventStatus.UPCOMING && 'bg-white/5 text-[#AAAAAA] border border-[#252525]',
+        status === EventStatus.FINISHED && 'bg-bg-tertiary text-muted border border-[#252525]',
+        status === EventStatus.CANCELLED && 'bg-bg-tertiary text-muted border border-[#252525]'
       )}
     >
-      {isLive && <span className="w-1.5 h-1.5 rounded-full bg-cyber-red animate-pulse-live" />}
+      {isLive && <span className="w-1.5 h-1.5 rounded-full bg-[#354FE3] animate-pulse-live" />}
       {getStatusLabel(status)}
     </span>
   );

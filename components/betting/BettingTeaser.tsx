@@ -21,13 +21,13 @@ export default function BettingTeaser() {
   };
 
   return (
-    <div className="bg-bg-card border border-dashed border-cyber-purple rounded-lg p-4">
+    <div className="bg-bg-card border border-dashed border-[#354FE3]/50 rounded-lg p-4">
       <div className="text-center mb-4">
         <span className="text-2xl">💎</span>
-        <h3 className="font-orbitron text-sm font-bold text-[#FFFFFF] mt-2 tracking-wide">
+        <h3 className="font-syncopate text-sm font-bold text-white mt-2 uppercase tracking-[0.1em]">
           REFERIDOS &amp; BONOS
         </h3>
-        <p className="font-mono text-xs text-muted mt-1">
+        <p className="font-inter text-xs text-muted mt-1">
           Programa de afiliacion con las mejores casas de apuestas. Proximamente.
         </p>
       </div>
@@ -40,15 +40,15 @@ export default function BettingTeaser() {
             className="relative bg-bg-tertiary rounded-lg p-3 overflow-hidden"
           >
             <div className="filter blur-[4px] select-none">
-              <p className="font-body text-sm font-medium text-[#FFFFFF]">
+              <p className="font-inter text-sm font-medium text-white">
                 {partner.name}
               </p>
-              <p className="font-mono text-[10px] text-cyber-green">
+              <p className="font-inter text-[11px] text-[#10B981]">
                 {partner.bonusText}
               </p>
             </div>
             <div className="absolute inset-0 flex items-center justify-center bg-bg-tertiary/50">
-              <span className="font-mono text-xs text-muted">
+              <span className="font-inter text-xs text-muted">
                 🔒 Disponible pronto
               </span>
             </div>
@@ -59,7 +59,7 @@ export default function BettingTeaser() {
       {/* Waitlist form */}
       {submitted ? (
         <div className="text-center py-2">
-          <p className="font-mono text-xs text-cyber-green">
+          <p className="font-inter text-xs text-[#10B981]">
             Te notificaremos cuando este disponible
           </p>
         </div>
@@ -71,11 +71,11 @@ export default function BettingTeaser() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-mono text-xs text-[#FFFFFF] placeholder:text-muted focus:outline-none focus:border-cyber-purple transition-colors duration-150"
+            className="w-full px-3 py-2.5 bg-bg-primary border border-border rounded-lg font-inter text-xs text-white placeholder:text-muted focus:outline-none focus:border-[#354FE3] transition-colors duration-150"
           />
           <button
             type="submit"
-            className="w-full px-3 py-2 bg-gradient-to-r from-cyber-purple to-cyber-purple2 text-white font-orbitron text-xs font-bold rounded-lg tracking-wide transition-all duration-150 hover:opacity-90"
+            className="w-full px-3 py-2 bg-[#354FE3] hover:bg-[#3E60EA] text-white font-syncopate text-xs font-bold rounded-lg uppercase tracking-[0.1em] transition-colors duration-150"
           >
             NOTIFICARME
           </button>
