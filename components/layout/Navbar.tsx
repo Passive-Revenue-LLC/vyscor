@@ -68,7 +68,7 @@ export default function Navbar({ activeTab, onTabChange, liveCount = 0 }: Navbar
                   <span className="sm:hidden">{tab.shortLabel}</span>
                   <span className="hidden sm:inline">{tab.label}</span>
                   {isActive && (
-                    <span className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 w-1 h-1 rounded-full bg-[#6B00F0]" />
+                    <span className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 w-1 h-1 rounded-full bg-[#354FE3]" />
                   )}
                 </button>
               );
@@ -84,9 +84,9 @@ export default function Navbar({ activeTab, onTabChange, liveCount = 0 }: Navbar
           {/* Right section */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {liveCount > 0 && (
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#6B00F0]/12 border border-[#6B00F0]/35">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#6B00F0] animate-pulse-live" />
-                <span className="font-syncopate text-[10px] font-bold uppercase tracking-[0.1em] text-[#7C4CFF] whitespace-nowrap">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#354FE3]/12 border border-[#354FE3]/35">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#354FE3] animate-pulse-live" />
+                <span className="font-syncopate text-[10px] font-bold uppercase tracking-[0.1em] text-[#3E60EA] whitespace-nowrap">
                   {liveCount}<span className="hidden sm:inline">&nbsp;LIVE</span>
                 </span>
               </div>
@@ -99,9 +99,9 @@ export default function Navbar({ activeTab, onTabChange, liveCount = 0 }: Navbar
                   <div className="relative" ref={menuRef}>
                     <button
                       onClick={() => setMenuOpen(!menuOpen)}
-                      className="flex items-center gap-2 px-2 sm:px-3 py-1.5 rounded-md bg-[#1B1B1B] border border-[#252525] hover:border-[#6B00F0] transition-colors duration-150"
+                      className="flex items-center gap-2 px-2 sm:px-3 py-1.5 rounded-md bg-[#1B1B1B] border border-[#252525] hover:border-[#354FE3] transition-colors duration-150"
                     >
-                      <div className="w-6 h-6 rounded-full bg-[#6B00F0] flex items-center justify-center shrink-0">
+                      <div className="w-6 h-6 rounded-full bg-[#354FE3] flex items-center justify-center shrink-0">
                         <span className="font-syncopate text-[10px] font-bold text-white">
                           {(profile?.name?.[0] || user.email?.[0] || 'U').toUpperCase()}
                         </span>
@@ -129,7 +129,7 @@ export default function Navbar({ activeTab, onTabChange, liveCount = 0 }: Navbar
                         </Link>
                         <button
                           onClick={() => { signOut(); setMenuOpen(false); }}
-                          className="w-full text-left px-4 py-3 font-syncopate text-[11px] font-bold uppercase tracking-[0.1em] text-[#7C4CFF] hover:bg-[#252525] transition-colors"
+                          className="w-full text-left px-4 py-3 font-syncopate text-[11px] font-bold uppercase tracking-[0.1em] text-[#3E60EA] hover:bg-[#252525] transition-colors"
                         >
                           Cerrar sesion
                         </button>
@@ -139,7 +139,7 @@ export default function Navbar({ activeTab, onTabChange, liveCount = 0 }: Navbar
                 ) : (
                   <Link
                     href="/login"
-                    className="px-3 sm:px-4 py-2 rounded-md bg-[#6B00F0] hover:bg-[#7C4CFF] text-white font-syncopate text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] transition-colors duration-150"
+                    className="px-3 sm:px-4 py-2 rounded-md bg-[#354FE3] hover:bg-[#3E60EA] text-white font-syncopate text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] transition-colors duration-150"
                   >
                     ENTRAR
                   </Link>

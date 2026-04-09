@@ -12,8 +12,8 @@ export default function Footer() {
             height={24}
             className="h-5 w-auto"
           />
-          <p className="font-syncopate text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6B6B] text-center">
-            &copy; 2026 VYSCOR &middot; Todos los derechos reservados &middot; +18
+          <p className="font-inter text-[11px] sm:text-[12px] text-[#6B6B6B] text-center">
+            &copy; 2026 Vyscor &middot; Todos los derechos reservados &middot; +18
           </p>
           <div className="flex items-center gap-5">
             <a href="#" className="font-syncopate text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B6B6B] hover:text-white transition-colors duration-150 py-1">

@@ -20,19 +20,19 @@ export default function Sidebar({ events }: SidebarProps) {
     <aside className="w-full lg:w-[280px] shrink-0 space-y-4 hidden lg:block">
       {/* Stats card */}
       <div className="bg-bg-card border border-border rounded-lg p-4">
-        <h3 className="font-orbitron text-xs font-bold text-cyber-cyan tracking-wider mb-4">
+        <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em] mb-4">
           ESTADISTICAS
         </h3>
         <div className="grid grid-cols-3 gap-3">
-          <StatBox label="En vivo" value={liveCount} color="text-cyber-red" />
-          <StatBox label="Proximos" value={upcomingCount} color="text-cyber-cyan" />
+          <StatBox label="En vivo" value={liveCount} color="text-white" />
+          <StatBox label="Proximos" value={upcomingCount} color="text-white" />
           <StatBox label="Finalizados" value={finishedCount} color="text-muted" />
         </div>
       </div>
 
       {/* Sports breakdown */}
       <div className="bg-bg-card border border-border rounded-lg p-4">
-        <h3 className="font-orbitron text-xs font-bold text-cyber-cyan tracking-wider mb-4">
+        <h3 className="font-syncopate text-xs font-bold text-white uppercase tracking-[0.1em] mb-4">
           POR DEPORTE
         </h3>
         <div className="space-y-2">
@@ -42,10 +42,10 @@ export default function Sidebar({ events }: SidebarProps) {
               const config = SPORT_CONFIG[sport as Sport];
               return (
                 <div key={sport} className="flex items-center justify-between text-sm">
-                  <span className="text-muted font-mono text-xs">
+                  <span className="text-[#AAAAAA] font-inter text-xs">
                     {config.emoji} {config.label}
                   </span>
-                  <span className="font-mono text-xs text-[#FFFFFF]">{count}</span>
+                  <span className="font-inter text-xs font-semibold text-white">{count}</span>
                 </div>
               );
             })}
@@ -58,8 +58,8 @@ export default function Sidebar({ events }: SidebarProps) {
 function StatBox({ label, value, color }: { label: string; value: number; color: string }) {
   return (
     <div className="text-center">
-      <p className={`font-mono text-2xl font-bold ${color}`}>{value}</p>
-      <p className="font-mono text-[10px] text-muted uppercase tracking-wider">{label}</p>
+      <p className={`font-inter text-2xl font-bold ${color}`}>{value}</p>
+      <p className="font-inter text-[11px] text-muted">{label}</p>
     </div>
   );
 }

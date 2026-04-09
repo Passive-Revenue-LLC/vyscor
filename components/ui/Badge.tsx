@@ -8,16 +8,16 @@ interface BadgeProps {
 
 // All badges live on dark surfaces and use the Vyscor purple/gray palette only.
 const variantStyles: Record<string, string> = {
-  live: 'bg-[#6B00F0]/12 text-[#7C4CFF] border border-[#6B00F0]/30',
+  live: 'bg-[#354FE3]/12 text-[#3E60EA] border border-[#354FE3]/30',
   upcoming: 'bg-white/5 text-[#AAAAAA] border border-[#252525]',
   finished: 'bg-transparent text-[#6B6B6B] border border-[#252525]',
-  purple: 'bg-[#6B00F0]/12 text-[#7C4CFF] border border-[#6B00F0]/30',
+  purple: 'bg-[#354FE3]/12 text-[#3E60EA] border border-[#354FE3]/30',
   muted: 'bg-white/5 text-[#6B6B6B] border border-[#252525]',
   // Legacy variant names map to brand-correct equivalents
   cyan: 'bg-white/5 text-[#AAAAAA] border border-[#252525]',
-  red: 'bg-[#6B00F0]/12 text-[#7C4CFF] border border-[#6B00F0]/30',
+  red: 'bg-[#354FE3]/12 text-[#3E60EA] border border-[#354FE3]/30',
   amber: 'bg-white/5 text-[#AAAAAA] border border-[#252525]',
-  green: 'bg-[#6B00F0]/12 text-[#7C4CFF] border border-[#6B00F0]/30',
+  green: 'bg-[#354FE3]/12 text-[#3E60EA] border border-[#354FE3]/30',
 };
 
 export default function Badge({ children, variant = 'muted', className }: BadgeProps) {
